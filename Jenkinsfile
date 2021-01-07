@@ -125,7 +125,7 @@ stages {
             FAILED_STAGE=env.STAGE_NAME
 			Quality= "${readProb['SonarQube_Quality']}"
 		    if ("$Quality" == "yes") {
-            sleep(120)
+            sleep(60)
             qg = waitForQualityGate() 
             if (qg.status != 'OK') {
             error "Pipeline aborted due to quality gate failure: ${qg.status}"	
