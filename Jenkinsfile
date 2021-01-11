@@ -204,7 +204,7 @@ stages {
           sleep 90
               cp /var/jenkins_home/budget.json .
               ls -la
-          sudo docker run --shm-size=1g --rm --network=host -v ${WORKSPACE}:/sitespeed.io ${readProb['speed_image']} ${readProb['Dev_website']} --outputFolder ${readProb['Dev_Sitespeed_output_folder']} --budget.configPath ${readProb['configpath']} --budget.output ${readProb['budget_output']} -b ${readProb['browser']} -n ${readProb['number_execution']}  || true
+          sudo docker run --shm-size=1g --rm --network=host -v ${WORKSPACE}:/sitespeed.io ${readProb['speed_image']} ${readProb['Dev_website']} --outputFolder ${readProb['Dev_Sitespeed_output_folder']}  --budget.output ${readProb['budget_output']} -b ${readProb['browser']} -n ${readProb['number_execution']}  || true
               """
                   }
                   else {
