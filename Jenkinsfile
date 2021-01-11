@@ -214,9 +214,8 @@ stages {
                   }
               archiveArtifacts artifacts: 'junitoutput/**/*'
               }   
-    
-    
-    }
+       }
+}
 
   post {
       success {
