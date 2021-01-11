@@ -228,12 +228,12 @@ stages {
             reportName: 'Dev_owaps'
               ]
       publishHTML target: [
-              allowMissing: false,
-              alwaysLinkToLastBuild: true,
-              keepAll: true,
-              reportDir: '/var/lib/jenkins/jobs/demo/builds/archive/junitoutput',
-              reportFiles: 'index.html',
-              reportName: 'Dev_speedtest'
+            allowMissing: false,
+            alwaysLinkToLastBuild: true,
+            keepAll: true,
+            reportDir: '/var/jenkins_home/jobs/demo/builds/archive/junitoutput',
+            reportFiles: 'index.html',
+            reportName: 'Dev_speedtest'
               ]
             }
         }
