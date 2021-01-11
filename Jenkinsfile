@@ -194,7 +194,8 @@ stages {
            }
           }      
       stage('Dev Speed Test') {
-             steps {
+        agent any
+        steps {
          script {
         FAILED_STAGE=env.STAGE_NAME
         Speed_test= "${readProb['Dev_Speed_test']}"
