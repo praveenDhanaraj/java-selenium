@@ -1,4 +1,3 @@
-
 def readProb;
 def FAILED_STAGE
 pipeline {
@@ -8,7 +7,7 @@ tools {
   git 'Default'
 }
 stages {
-    stage('Preperation'){
+    stage('Preperations'){
     steps {
         script {
         readProb = readProperties  file:'config.properties'
