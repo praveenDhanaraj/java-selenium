@@ -194,7 +194,6 @@ stages {
            }
           }      
       stage('Dev Speed Test') {
-            agent { label 'linuxslave'}
              steps {
          script {
         FAILED_STAGE=env.STAGE_NAME
