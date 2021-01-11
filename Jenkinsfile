@@ -7,7 +7,7 @@ tools {
   git 'Default'
 }
 stages {
-    stage('Preperations'){
+    stage('Preperation'){
     steps {
         script {
         readProb = readProperties  file:'config.properties'
