@@ -94,7 +94,7 @@ stages {
                   echo "skipped"
                   }
                   }
-               archiveArtifacts artifacts: 'junitoutput/**/*'
+              
               }   
        }
 }
