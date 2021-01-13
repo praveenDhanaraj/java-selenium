@@ -75,28 +75,7 @@ stages {
     
 
       
-      stage('Dev Speed Test') {
-        steps {
-         script {
-        FAILED_STAGE=env.STAGE_NAME
-        Speed_test= "${readProb['Dev_Speed_test']}"
-                    if ("$Speed_test" == "yes") {
-        sh """
-          pwd
-          sleep 90
-              cp /var/jenkins_home/budget.json ${WORKSPACE}
-              chmod 777 ${WORKSPACE}/budget.json
-              ls -la
-          sudo docker run --shm-size=1g --rm --network=host -v ${WORKSPACE}:/sitespeed.io ${readProb['speed_image']} ${readProb['Dev_website']} --outputFolder ${readProb['Dev_Sitespeed_output_folder']}  --budget.configPath ${readProb['configpath']} --budget.output ${readProb['budget_output']} -b ${readProb['browser']} -n ${readProb['number_execution']}  || true
-              """
-                  }
-                  else {
-                  echo "skipped"
-                  }
-                  }
-              
-              }   
-       }
+
 }
 
   post {
@@ -105,7 +84,7 @@ stages {
             allowMissing: false,
             alwaysLinkToLastBuild: true,
             keepAll: true,
-            reportDir: '/var/jenkins_home/jobs/demo/builds/archive/junitoutput',
+            reportDir: '/var/jenkins_home/jobs/demo/builds/archive/out',
             reportFiles: 'index.html',
             reportName: 'Dev_speedtest'
               ]
