@@ -195,7 +195,8 @@ stages {
           }      
         stage('OpenVAS') {
            steps {
-             sh 'ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4)'
+             sh """
+             ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4)
              ssh -tt ubuntu@192.168.2.16 << SSH_EOF
              echo "open vas server"
              sudo su
@@ -204,6 +205,7 @@ stages {
              sleep 5
              exit
              SSH_EOF 
+             """
           }
         }
 }
