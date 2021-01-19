@@ -197,7 +197,7 @@ stages {
            steps {
              sh '''
              ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4)
-             ssh -tt ubuntu@192.168.2.16 << SSH_EOF
+             ssh -tt -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ubuntu@192.168.2.16 /bin/bash << SSH_EOF
              echo "open vas server"
              sudo /bin/su - root
              sleep 5 
