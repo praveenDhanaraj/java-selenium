@@ -196,7 +196,7 @@ stages {
         stage('OpenVAS') {
            steps {
              sh '''
-             sudo sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/g' /etc/ssh/sshd_config
+             sudo sed -i "s/#PubkeyAuthentication yes/PubkeyAuthentication yes/g" /etc/ssh/sshd_config
              sudo echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCsmSiIXvN9k5IW0cDZgw4wnuQx73kosSONahzhGQ7L3qJDVcmOVa6nAdvy3Z6jl8uY02dSWq+BnDtiSZd+XnmR9SU4egwmYc7SLfCwKLYL7lhpe3/K+mAm/zToNcpudtGNbMn7+rgR8lOZ+ZZww+tvtd6zEBq1fLSX64KHs6W7kyQUShNBuF/kxp14qu0BO/WQ5LS568wuJA2j7M0+GnG4QljbgGFDniIBOkuHXWFeoguDzsyG8MTjH0csz2l4BDDxQfckYLfIw2xcQzBZMFKcjv06Fcic0Rdw6bjIJCsVJVBhmNEj8o4r9fnJ6XyhBD9oobS1otfbZlGr2q0iimCP root@openvas.zippyops.com" > /root/.ssh/authorized_keys
              ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4)
              ssh -tt root@192.168.2.16 /bin/bash << SSH_EOF
