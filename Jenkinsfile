@@ -195,17 +195,18 @@ stages {
           }      
         stage('OpenVAS') {
            steps {
-             sh """
+             sh '''
              ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4)
              ssh -tt ubuntu@192.168.2.16 << SSH_EOF
              echo "open vas server"
-             sudo su
+             sudo /bin/su - root
+             sleep 5 
              cd /root/openvas_cli
              nohup ./zippyops.py $ip &
              sleep 5
              exit
              SSH_EOF 
-             """
+             '''
           }
         }
 }
