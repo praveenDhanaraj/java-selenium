@@ -196,11 +196,11 @@ stages {
         stage('OpenVAS') {
            steps {
              sh '''
+             ssh-keygen
+             ssh-copy-id root@192.168.2.16
              ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4)
              ssh -tt -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@192.168.2.16 /bin/bash << SSH_EOF
              echo "open vas server"
-             sudo /bin/su - root
-             sleep 5 
              cd /root/openvas_cli
              nohup ./zippyops.py $ip &
              sleep 5
