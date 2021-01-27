@@ -140,7 +140,8 @@ stages {
     stage('Docker Build') {
       agent any
       steps {
-        sh "docker build -t 192.168.8.10:80/docker/cicd-dockerimage:${readProb['DockerImageTag']}  /var/jenkins_home/workspace/demo/."
+        sh ' jfrog=$(kubectl get svc | grep jfrog-artifactory-nginx | awk -F \' \' \'{print $4}\')'
+        sh "docker build -t $jfrog:80/docker/cicd-dockerimage:${readProb['DockerImageTag']}  /var/jenkins_home/workspace/demo/."
       }
     }
 
@@ -169,8 +170,9 @@ stages {
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
           sh ' jfrog=$(kubectl get svc | grep jfrog-artifactory-nginx | awk -F \' \' \'{print $4}\')'
+          sh 'bash /opt/script/daemon.sh'
           sh "docker login -u admin -p zippyops $jfrog"
-          sh "docker push 192.168.8.10:80/docker/cicd-dockerimage:${readProb['DockerImageTag']}"
+          sh "docker push $jfrog:80/docker/cicd-dockerimage:${readProb['DockerImageTag']}"
         }
       }
     }
