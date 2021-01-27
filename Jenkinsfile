@@ -140,7 +140,7 @@ stages {
     stage('Docker Build') {
       agent any
       steps {
-        sh ' jfrog=$(kubectl get svc | grep jfrog-artifactory-nginx | awk -F \' \' \'{print $4}\')'
+        sh ' jfrog=$(kubectl get svc -n jcr | grep jfrog-artifactory-nginx | awk -F \' \' \'{print $4}\')'
         sh "docker build -t $jfrog:80/docker/cicd-dockerimage:${readProb['DockerImageTag']}  /var/jenkins_home/workspace/demo/."
       }
     }
