@@ -169,7 +169,7 @@ stages {
       agent any
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-          sh ' jfrog=$(kubectl get svc | grep jfrog-artifactory-nginx | awk -F \' \' \'{print $4}\')'
+          sh ' jfrog=$(kubectl get svc -n jcr | grep jfrog-artifactory-nginx | awk -F \' \' \'{print $4}\')'
           sh 'bash /opt/script/daemon.sh'
           sh "docker login -u admin -p zippyops $jfrog"
           sh "docker push $jfrog:80/docker/cicd-dockerimage:${readProb['DockerImageTag']}"
