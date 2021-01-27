@@ -169,7 +169,7 @@ stages {
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
           sh ' jfrog=$(kubectl get svc | grep jfrog-artifactory-nginx | awk -F \' \' \'{print $4}\')'
-          sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword} $jfrog"
+          sh "docker login -u admin -p zippyops $jfrog"
           sh "docker push 192.168.8.10:80/docker/cicd-dockerimage:${readProb['DockerImageTag']}"
         }
       }
