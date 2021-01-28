@@ -160,11 +160,11 @@ stages {
             FAILED_STAGE=env.STAGE_NAME
                   Dev_deploy= "${readProb['Dev_Deploy']}"
                     if ("$Dev_deploy" == "yes") {
-                  sh """  
-                  echo  $BUILD_NUMBER
+                  sh '''address=$(kubectl get svc | grep jfrog-artifactory-nginx | awk -F \' \' \'{print $4}\')
+                  sed  -i "s/zippyops01\\/cicd-dockerimage/${address}:80\\/docker\\/cicd-dockerimage/g"  /var/jenkins_home/workspace/demo/deploy.yml
+                  echo  $BUILD_NUMBER                  
                   sed -i s/latest/$BUILD_NUMBER/g /var/jenkins_home/workspace/demo/deploy.yml
-                  kubectl apply -f /var/jenkins_home/workspace/demo/deploy.yml 
-                  """
+                  kubectl apply -f /var/jenkins_home/workspace/demo/deploy.yml'''
                   sh 'sleep 55s'
                   sh 'ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4) && echo http://zippyops:zippyops@$ip:8080/newapp-0.0.1-SNAPSHOT/'
                   }
