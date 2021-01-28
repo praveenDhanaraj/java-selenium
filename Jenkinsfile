@@ -140,8 +140,8 @@ stages {
     stage('Docker Build') {
       agent any
       steps {
-        sh ' jfrog=$(kubectl get svc -n jcr | grep jfrog-artifactory-nginx | awk -F \' \' \'{print $4}\')'
-        sh "docker build -t 192.168.8.16:80/docker/cicd-dockerimage:${readProb['DockerImageTag']}  /var/jenkins_home/workspace/demo/."
+        sh ''' jfrog=$(kubectl get svc -n jcr | grep jfrog-artifactory-nginx | awk -F \' \' \'{print $4}\') && docker build -t $jfrog:80/docker/cicd-dockerimage:${readProb[\'DockerImageTag\']}  /var/jenkins_home/workspace/demo/.
+'''
       }
     }
 
@@ -169,10 +169,8 @@ stages {
       agent any
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-          sh ' jfrog=$(kubectl get svc -n jcr | grep jfrog-artifactory-nginx | awk -F \' \' \'{print $4}\')'
           sh 'bash /opt/script/daemon.sh'
-          sh "docker login -u admin -p zippyops $jfrog"
-          sh "docker push $jfrog:80/docker/cicd-dockerimage:${readProb['DockerImageTag']}"
+          sh 'jfrog=$(kubectl get svc -n jcr | grep jfrog-artifactory-nginx | awk -F \' \' \'{print $4}\') && docker login -u admin -p zippyops $jfrog && docker push $jfrog:80/docker/cicd-dockerimage:${readProb[\'DockerImageTag\']}'
         }
       }
     }
