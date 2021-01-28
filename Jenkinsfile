@@ -140,7 +140,7 @@ stages {
     stage('Docker Build') {
       agent any
       steps {
-        sh 'address=$(kubectl get svc -n jcr | grep jfrog-artifactory-nginx | awk -F \' \' \'{print $4}\') && docker build -t $address:80/docker/cicd-dockerimage:$BUILD_NUMBER  /var/jenkins_home/workspace/demo/.'
+        sh 'address=$(kubectl get svc | grep jfrog-artifactory-nginx | awk -F \' \' \'{print $4}\') && docker build -t $address:80/docker/cicd-dockerimage:$BUILD_NUMBER  /var/jenkins_home/workspace/demo/.'
       }
     }
 
@@ -149,8 +149,8 @@ stages {
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
           sh 'echo script done'
-          sh 'address=$(kubectl get svc -n jcr | grep jfrog-artifactory-nginx | awk -F \' \' \'{print $4}\') && docker login -u admin -p zippyops $address:80 '
-          sh 'address=$(kubectl get svc -n jcr | grep jfrog-artifactory-nginx | awk -F \' \' \'{print $4}\') && docker push $address:80/docker/cicd-dockerimage:$BUILD_NUMBER'
+          sh 'address=$(kubectl get svc | grep jfrog-artifactory-nginx | awk -F \' \' \'{print $4}\') && docker login -u admin -p zippyops $address:80 '
+          sh 'address=$(kubectl get svc | grep jfrog-artifactory-nginx | awk -F \' \' \'{print $4}\') && docker push $address:80/docker/cicd-dockerimage:$BUILD_NUMBER'
         }
       }
     }
