@@ -144,26 +144,6 @@ stages {
       }
     }
 
-    stage('Dev Anchore') {    
-        steps {
-            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') { script {
-         FAILED_STAGE=env.STAGE_NAME
-         anchore= "${readProb['Dev_anchore']}"
-		 if ("$anchore" == "yes") {
-		 script {
-		  sh 'rm -rf anchore_images || true'
-		  sh 'echo "zippyops01/cicd-dockerimage:$BUILD_NUMBER $WORKSPACE/Dockerfile" > anchore_images'
-          anchore bailOnPluginFail: false, name: 'anchore_images'
-			  }
-			}
-		 else {
-		 echo "Skipped"
-		       }
-		       }
-		      }
-       	     }
-	       }
-
     stage('Docker Push') {
       agent any
       steps {
