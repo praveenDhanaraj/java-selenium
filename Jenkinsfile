@@ -2,11 +2,6 @@ def readProb;
 def FAILED_STAGE
 pipeline {
 agent { label 'master'}
-environment {
-  imagename = "zippyops01/cicd"
-  registryCredential = 'dockerHub'
-  dockerImage = ''
-}
 tools {
   maven 'maven-3'
   git 'Default'
@@ -142,36 +137,53 @@ stages {
 		   }
          }
      }
-    stage("Building image") {
-      steps{
-        script {
-          sh "echo image"
-          dockerImage = docker.build imagename
+    stage('Docker Build') {
+      agent any
+      steps {
+        sh "docker build -t zippyops01/cicd-dockerimage:${readProb['DockerImageTag']}  /var/jenkins_home/workspace/demo/."
+      }
+    }
+	
+    stage('Dev Anchore') {    
+        steps {
+            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') { script {
+         FAILED_STAGE=env.STAGE_NAME
+         anchore= "${readProb['Dev_anchore']}"
+		 if ("$anchore" == "yes") {
+		 script {
+		  sh 'rm -rf anchore_images || true'
+		  sh 'echo "zippyops01/cicd-dockerimage:$BUILD_NUMBER $WORKSPACE/Dockerfile" > anchore_images'
+          anchore bailOnPluginFail: false, name: 'anchore_images'
+			  }
+			}
+		 else {
+		 echo "Skipped"
+		       }
+		       }
+		      }
+       	     }
+	       }
+	
+    stage('Docker Push') {
+      agent any
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+          sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+          sh "docker push zippyops01/cicd-dockerimage:${readProb['DockerImageTag']}"
         }
       }
     }
-    stage("Deploy Image") {
-      steps{
-        script {
-          docker.withRegistry( '', registryCredential ) {
-            dockerImage.push("$BUILD_NUMBER")
-             dockerImage.push('latest')
-
-          }
-        }
-      }
-    }        
-    stage("Dev Deploy") {
+        stage("Dev Deploy") {
            steps {
            script {
             FAILED_STAGE=env.STAGE_NAME
                   Dev_deploy= "${readProb['Dev_Deploy']}"
                     if ("$Dev_deploy" == "yes") {
-                  sh '''address=$(kubectl get svc | grep jfrog-artifactory-nginx | awk -F \' \' \'{print $4}\')
-                  sed  -i "s/zippyops01\\/cicd-dockerimage/${address}:80\\/docker\\/cicd-dockerimage/g"  /var/jenkins_home/workspace/demo/deploy.yml
-                  echo  $BUILD_NUMBER                  
+                  sh """  
+                  echo  $BUILD_NUMBER
                   sed -i s/latest/$BUILD_NUMBER/g /var/jenkins_home/workspace/demo/deploy.yml
-                  kubectl apply -f /var/jenkins_home/workspace/demo/deploy.yml'''
+                  kubectl apply -f /var/jenkins_home/workspace/demo/deploy.yml 
+                  """
                   sh 'sleep 55s'
                   sh 'ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4) && echo http://zippyops:zippyops@$ip:8080/newapp-0.0.1-SNAPSHOT/'
                   }
@@ -181,14 +193,32 @@ stages {
             }
            }
           }
-        stage("ZAProxy") {
+		  
+		 stage('OpenVAS') {
+           steps {
+             sh 'sed -i \'s/#PubkeyAuthentication yes/PubkeyAuthentication yes/g\' /etc/ssh/sshd_config'
+             sh 'sudo echo \'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCsmSiIXvN9k5IW0cDZgw4wnuQx73kosSONahzhGQ7L3qJDVcmOVa6nAdvy3Z6jl8uY02dSWq+BnDtiSZd+XnmR9SU4egwmYc7SLfCwKLYL7lhpe3/K+mAm/zToNcpudtGNbMn7+rgR8lOZ+ZZww+tvtd6zEBq1fLSX64KHs6W7kyQUShNBuF/kxp14qu0BO/WQ5LS568wuJA2j7M0+GnG4QljbgGFDniIBOkuHXWFeoguDzsyG8MTjH0csz2l4BDDxQfckYLfIw2xcQzBZMFKcjv06Fcic0Rdw6bjIJCsVJVBhmNEj8o4r9fnJ6XyhBD9oobS1otfbZlGr2q0iimCP root@openvas.zippyops.com\' > /root/.ssh/authorized_keys'
+             sh 'ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \\\' \\\' | cut -d \\\' \\\' -f 4)'
+             sh '''ssh -tt root@192.168.2.16 /bin/bash << SSH_EOF
+             echo \'open vas server\'
+             cd /root/openvas_cli
+             nohup ./zippyops1.py $ip &
+             sleep 5
+             exit
+             SSH_EOF '''
+          }
+        }
+        
+       stage("ZAProxy") {
            steps {
            script {
 				     sh 'ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4) && sed -i "s/http:\\/\\/15.206.11.209/http:\\/\\/zippyops:zippyops\\@$ip:8080\\/newapp-0.0.1-SNAPSHOT\\//g" /var/jenkins_home/zaproxy-job.yaml'
             }
            }
           } 
-}
+ 		
+       
+    }  
 
   post {
       success {
@@ -200,7 +230,6 @@ stages {
             reportFiles: 'demo_Dev_ZAP_VULNERABILITY_REPORT.html',
             reportName: 'Dev_owaps'
               ]
-	   
             }
         }
 
