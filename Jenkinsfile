@@ -140,7 +140,7 @@ stages {
     stage('Docker Build') {
       agent any
       steps {
-        sh "docker build -t zippyops01/cicd-dockerimage:${readProb['DockerImageTag']}  /var/jenkins_home/workspace/demo/."
+        sh 'address=$(kubectl get svc | grep jfrog-artifactory-nginx | awk -F \' \' \'{print $4}\') && docker build -t $address:80/docker/cicd-dockerimage:$BUILD_NUMBER  /var/jenkins_home/workspace/demo/.'
       }
     }
 	
@@ -164,12 +164,13 @@ stages {
        	     }
 	       }
 	
-    stage('Docker Push') {
+     stage('Docker Push') {
       agent any
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-          sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-          sh "docker push zippyops01/cicd-dockerimage:${readProb['DockerImageTag']}"
+          sh 'echo script done'
+          sh 'address=$(kubectl get svc | grep jfrog-artifactory-nginx | awk -F \' \' \'{print $4}\') && docker login -u admin -p zippyops $address:80 '
+          sh 'address=$(kubectl get svc | grep jfrog-artifactory-nginx | awk -F \' \' \'{print $4}\') && docker push $address:80/docker/cicd-dockerimage:$BUILD_NUMBER'    
         }
       }
     }
