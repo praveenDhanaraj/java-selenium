@@ -177,7 +177,7 @@ stages {
         stage("ZAProxy") {
            steps {
            script {
-				     sh 'ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4) && url=http://zippyops:zippyops@$ip:8080/newapp-0.0.1-SNAPSHOT/ && sed -i \'s/http:\\/\\/15.206.11.209/$url/g\' /var/jenkins_home/zaproxy-job.yaml'
+				     sh 'ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4) && url="http://zippyops:zippyops@$ip:8080/newapp-0.0.1-SNAPSHOT/" && sed -i \'s/http:\\/\\/15.206.11.209/$url/g\' /var/jenkins_home/zaproxy-job.yaml'
             }
            }
           } 
