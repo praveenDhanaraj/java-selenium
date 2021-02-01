@@ -142,14 +142,14 @@ stages {
 		   }
          }
      }
-    stage('Building image') {
+    stage("Building image") {
       steps{
         script {
           dockerImage = docker.build imagename
         }
       }
     }
-    stage('Deploy Image') {
+    stage("Deploy Image") {
       steps{
         script {
           docker.withRegistry( '', registryCredential ) {
@@ -159,7 +159,8 @@ stages {
           }
         }
       }
-    }        stage("Dev Deploy") {
+    }        
+    stage("Dev Deploy") {
            steps {
            script {
             FAILED_STAGE=env.STAGE_NAME
