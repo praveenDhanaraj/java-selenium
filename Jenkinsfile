@@ -145,6 +145,7 @@ stages {
     stage("Building image") {
       steps{
         script {
+          sh "echo image"
           dockerImage = docker.build imagename
         }
       }
