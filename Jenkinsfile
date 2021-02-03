@@ -13,37 +13,37 @@ stages {
         readProb = readProperties  file:'config.properties'
         FAILED_STAGE=env.STAGE_NAME
         Preperation= "${readProb['Preperation']}"
-		if ("$Preperation" == "yes") {
-	    sh "git config --global user.email admin@example.com"
+                if ("$Preperation" == "yes") {
+            sh "git config --global user.email admin@example.com"
         sh "git config --global user.name Administrator"
         sh 'git config --global credential.helper cache'
         sh 'git config --global credential.helper cache'
         sh "if [ -d ${readProb['Project_name']} ]; then rm -Rf ${readProb['Project_name']}; fi"
-        sh "if [ -d ${readProb['PMD_result']} ]; then rm -Rf ${readProb['PMD_result']};  fi"        
+        sh "if [ -d ${readProb['PMD_result']} ]; then rm -Rf ${readProb['PMD_result']};  fi"
         sh "mkdir ${readProb['PMD_result']}"
-		}
-		else {
-		 echo "Skipped"
-		}
-		}
-		}
+                }
+                else {
+                 echo "Skipped"
+                }
+                }
+                }
     }
     stage('Git Pull'){
-    steps {	dir("${readProb['Project_name']}"){
-	    git branch: "${readProb['branch']}", credentialsId: "${readProb['credentials']}", url: "${readProb['Bitbucket.url']}"    
-	      }
-		}
-	 }
-	stage("Validate NOPMD Usage") {
-	steps {
+    steps {     dir("${readProb['Project_name']}"){
+            git branch: "${readProb['branch']}", credentialsId: "${readProb['credentials']}", url: "${readProb['Bitbucket.url']}"
+              }
+                }
+         }
+        stage("Validate NOPMD Usage") {
+        steps {
         script {
         FAILED_STAGE=env.STAGE_NAME
         NOPMD= "${readProb['NOPMD']}"
-		if ("$NOPMD" == "yes") {
-	    sh (
-	       script: '''
-	    cd demo
-	    echo $PWD
+                if ("$NOPMD" == "yes") {
+            sh (
+               script: '''
+            cd demo
+            echo $PWD
         nosonar="$(grep -ir nosonar  | wc -l)"
         nopmd="$(grep -ir nopmd  | wc -l)"
         nosquid="$(grep -ir squid  | wc -l)"
@@ -52,45 +52,45 @@ stages {
         else
         grep -ir nopmd    > ${WORKSPACE}/${readProb['PMD_result']}/nopmd.report
         grep -ir nosonar  > ${WORKSPACE}/${readProb['PMD_result']}/nosonar.report
-        grep -ir squid    > ${WORKSPACE}/${readProb['PMD_result']}/nosquid.report 
-        echo "No Sonar was used ${nosonar} times in the code" 
+        grep -ir squid    > ${WORKSPACE}/${readProb['PMD_result']}/nosquid.report
+        echo "No Sonar was used ${nosonar} times in the code"
         echo "No PMD was used ${nopmd} times in the code"
         echo "squid supress was used ${nosquid} times in the code"
         exit 0
         fi '''
         )
-		}
-		else {
-		  echo "skipped"
-		 }
-	    }
-	   }
-	 }
-	stage('ClamAV') {
-	 parallel {
-	 stage('Scan') {
-	  steps {
-	    script {
+                }
+                else {
+                  echo "skipped"
+                 }
+            }
+           }
+         }
+        stage('ClamAV') {
+         parallel {
+         stage('Scan') {
+          steps {
+            script {
         FAILED_STAGE=env.STAGE_NAME
-		 ClamAV_scan= "${readProb['ClamAV']}"
-		    if ("$ClamAV_scan" == "yes"){
+                 ClamAV_scan= "${readProb['ClamAV']}"
+                    if ("$ClamAV_scan" == "yes"){
        build job: 'demo_clamav', wait: false
        } else
      echo "Skipped"
-	     }
-	    }
-	   }
-	  }
+             }
+            }
+           }
+          }
     }
     stage ('Build Stage') {
     steps {
             sh 'mvn -f $WORKSPACE/pom.xml clean install'
             }
     }
-    
+
     stage('upload') {
        steps {
-          script { 
+          script {
              def server = Artifactory.server 'artifactory'
              def uploadSpec = """{
                 "files": [{
@@ -98,43 +98,43 @@ stages {
                    "target": "example-repo-local"
                 }]
               }"""
-              server.upload(uploadSpec) 
+              server.upload(uploadSpec)
               }
             }
         }
     stage('SonarQube analysis') {
-	  steps {
-	    script {
+          steps {
+            script {
          scannerHome = tool 'sonarqube';
-	     FAILED_STAGE=env.STAGE_NAME
-	   	  SonarQube= "${readProb['SonarQube_Analysis']}"
-		if ("$SonarQube" == "yes") {
+             FAILED_STAGE=env.STAGE_NAME
+                  SonarQube= "${readProb['SonarQube_Analysis']}"
+                if ("$SonarQube" == "yes") {
           withSonarQubeEnv('sonarqube') {
           sh "${scannerHome}/bin/sonar-scanner -X -Dsonar.login=admin -Dsonar.password=zippyops -Dsonar.projectKey=demo -Dsonar.projectName=demo -Dsonar.projectVersion=1.0  -Dsonar.sources=${readProb['sonar_sources']} -Dsonar.java.sourceEncoding=ISO-8859-1"
            }
-	    }
-		else {
-		  echo "Skipped"
-		  }
-		 }
-		}
+            }
+                else {
+                  echo "Skipped"
+                  }
+                 }
+                }
      }
     stage("Sonarqube Quality Gate") {
-	   steps {
-	     script { 
+           steps {
+             script {
             FAILED_STAGE=env.STAGE_NAME
-			Quality= "${readProb['SonarQube_Quality']}"
-		    if ("$Quality" == "yes") {
+                        Quality= "${readProb['SonarQube_Quality']}"
+                    if ("$Quality" == "yes") {
             sleep(60)
-            qg = waitForQualityGate() 
+            qg = waitForQualityGate()
             if (qg.status != 'OK') {
-            error "Pipeline aborted due to quality gate failure: ${qg.status}"	
+            error "Pipeline aborted due to quality gate failure: ${qg.status}"
               }
             }
-			else {
-			echo "skipped"
-			}
-		   }
+                        else {
+                        echo "skipped"
+                        }
+                   }
          }
      }
     stage('Docker Build') {
@@ -143,27 +143,27 @@ stages {
         sh "docker build -t zippyops01/cicd-dockerimage:${readProb['DockerImageTag']}  /var/jenkins_home/workspace/demo/."
       }
     }
-	
-    stage('Dev Anchore') {    
+
+    stage('Dev Anchore') {
         steps {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') { script {
          FAILED_STAGE=env.STAGE_NAME
          anchore= "${readProb['Dev_anchore']}"
-		 if ("$anchore" == "yes") {
-		 script {
-		  sh 'rm -rf anchore_images || true'
-		  sh 'echo "zippyops01/cicd-dockerimage:$BUILD_NUMBER $WORKSPACE/Dockerfile" > anchore_images'
+                 if ("$anchore" == "yes") {
+                 script {
+                  sh 'rm -rf anchore_images || true'
+                  sh 'echo "zippyops01/cicd-dockerimage:$BUILD_NUMBER $WORKSPACE/Dockerfile" > anchore_images'
           anchore bailOnPluginFail: false, name: 'anchore_images'
-			  }
-			}
-		 else {
-		 echo "Skipped"
-		       }
-		       }
-		      }
-       	     }
-	       }
-	
+                          }
+                        }
+                 else {
+                 echo "Skipped"
+                       }
+                       }
+                      }
+             }
+               }
+
     stage('Docker Push') {
       agent any
       steps {
@@ -179,10 +179,10 @@ stages {
             FAILED_STAGE=env.STAGE_NAME
                   Dev_deploy= "${readProb['Dev_Deploy']}"
                     if ("$Dev_deploy" == "yes") {
-                  sh """  
+                  sh """
                   echo  $BUILD_NUMBER
                   sed -i s/latest/$BUILD_NUMBER/g /var/jenkins_home/workspace/demo/deploy.yml
-                  kubectl apply -f /var/jenkins_home/workspace/demo/deploy.yml 
+                  kubectl apply -f /var/jenkins_home/workspace/demo/deploy.yml
                   """
                   sh 'sleep 55s'
                   sh 'ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4) && echo http://zippyops:zippyops@$ip:8080/newapp-0.0.1-SNAPSHOT/'
@@ -193,8 +193,8 @@ stages {
             }
            }
           }
-		  
-		 stage('OpenVAS') {
+
+                 stage('OpenVAS') {
            steps {
              sh 'sed -i \'s/#PubkeyAuthentication yes/PubkeyAuthentication yes/g\' /etc/ssh/sshd_config'
              sh 'sudo echo \'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCsmSiIXvN9k5IW0cDZgw4wnuQx73kosSONahzhGQ7L3qJDVcmOVa6nAdvy3Z6jl8uY02dSWq+BnDtiSZd+XnmR9SU4egwmYc7SLfCwKLYL7lhpe3/K+mAm/zToNcpudtGNbMn7+rgR8lOZ+ZZww+tvtd6zEBq1fLSX64KHs6W7kyQUShNBuF/kxp14qu0BO/WQ5LS568wuJA2j7M0+GnG4QljbgGFDniIBOkuHXWFeoguDzsyG8MTjH0csz2l4BDDxQfckYLfIw2xcQzBZMFKcjv06Fcic0Rdw6bjIJCsVJVBhmNEj8o4r9fnJ6XyhBD9oobS1otfbZlGr2q0iimCP root@openvas.zippyops.com\' > /root/.ssh/authorized_keys'
@@ -208,21 +208,21 @@ stages {
              SSH_EOF '''
           }
         }
-        
+
        stage("ZAProxy") {
            steps {
            script {
-				     sh 'ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4) && sed -i "s/http:\\/\\/15.206.11.209/http:\\/\\/zippyops:zippyops\\@$ip:8080\\/newapp-0.0.1-SNAPSHOT\\//g" /var/jenkins_home/job/demo/zaproxy-job.yaml'
+                                     sh 'ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4) && sed -i "s/http:\\/\\/15.206.11.209/http:\\/\\/zippyops:zippyops\\@$ip:8080\\/newapp-0.0.1-SNAPSHOT\\//g" /var/jenkins_home/zaproxy-job.yaml'
             }
            }
-          } 
- 		
-       
-    }  
+          }
+
+
+    }
 
   post {
       success {
-	    publishHTML target: [
+            publishHTML target: [
             allowMissing: false,
             alwaysLinkToLastBuild: true,
             keepAll: true,
