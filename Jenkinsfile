@@ -140,7 +140,7 @@ stages {
     stage('Docker Build') {
       agent any
       steps {
-        sh 'address=$(kubectl get svc | grep jfrog-artifactory-nginx | awk -F \' \' \'{print $4}\') && docker build -t $address:80/docker/cicd-dockerimage:$BUILD_NUMBER  /var/jenkins_home/workspace/demo/.'
+        sh "docker build -t zippyops01/cicd-dockerimage:${readProb['DockerImageTag']}  /var/jenkins_home/workspace/demo/."
       }
     }
 	
@@ -164,12 +164,12 @@ stages {
        	     }
 	       }
 	
-     stage('Docker Push') {
+    stage('Docker Push') {
       agent any
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-          sh 'echo script done'
-          sh 'address=$(kubectl get svc | grep jfrog-artifactory-nginx | awk -F \' \' \'{print $4}\')'             
+          sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+          sh "docker push zippyops01/cicd-dockerimage:${readProb['DockerImageTag']}"
         }
       }
     }
@@ -193,6 +193,21 @@ stages {
             }
            }
           }
+		  
+		 stage('OpenVAS') {
+           steps {
+             sh 'sed -i \'s/#PubkeyAuthentication yes/PubkeyAuthentication yes/g\' /etc/ssh/sshd_config'
+             sh 'sudo echo \'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCsmSiIXvN9k5IW0cDZgw4wnuQx73kosSONahzhGQ7L3qJDVcmOVa6nAdvy3Z6jl8uY02dSWq+BnDtiSZd+XnmR9SU4egwmYc7SLfCwKLYL7lhpe3/K+mAm/zToNcpudtGNbMn7+rgR8lOZ+ZZww+tvtd6zEBq1fLSX64KHs6W7kyQUShNBuF/kxp14qu0BO/WQ5LS568wuJA2j7M0+GnG4QljbgGFDniIBOkuHXWFeoguDzsyG8MTjH0csz2l4BDDxQfckYLfIw2xcQzBZMFKcjv06Fcic0Rdw6bjIJCsVJVBhmNEj8o4r9fnJ6XyhBD9oobS1otfbZlGr2q0iimCP root@openvas.zippyops.com\' > /root/.ssh/authorized_keys'
+             sh 'ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \\\' \\\' | cut -d \\\' \\\' -f 4)'
+             sh '''ssh -tt root@192.168.2.16 /bin/bash << SSH_EOF
+             echo \'open vas server\'
+             cd /root/openvas_cli
+             nohup ./zippyops1.py $ip &
+             sleep 5
+             exit
+             SSH_EOF '''
+          }
+        }  
     }  
 
   post {
