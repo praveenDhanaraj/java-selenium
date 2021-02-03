@@ -196,12 +196,11 @@ stages {
        stage("ZAProxy") {
            steps {
            script {
-                                     sh 'ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4) && sed -i "s/http:\\/\\/15.206.11.209/http:\\/\\/zippyops:zippyops\\@$ip:8080\\/newapp-0.0.1-SNAPSHOT\\//g" /var/jenkins_home/zaproxy-job.yaml'
+             sh 'ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4) && sed -i "s/http:\\/\\/15.206.11.209/http:\\/\\/zippyops:zippyops\\@$ip:8080\\/newapp-0.0.1-SNAPSHOT\\//g" /var/jenkins_home/workspace/demo/zaproxy-job.yaml'
+             sh 'kubectl apply -f /var/jenkins_home/workspace/demo/zaproxy-job.yaml'
             }
            }
           }
-
-
     }
 
   post {
