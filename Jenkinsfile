@@ -206,8 +206,8 @@ stages {
            steps{
              script {
                sh 'sleep 7m'
-               sh "curl -u admin:zippyops -X GET 'http://192.168.8.10/remote.php/dav/files/admin/zaproxy/demo_Dev_ZAP_VULNERABILITY_REPORT.html' -o /var/jenkins_home/jobs/sitespeed/builds/archive/out/demo_Dev_ZAP_VULNERABILITY_REPORT.html"
-               sh "curl -u admin:zippyops -X GET 'http://192.168.8.10/remote.php/dav/files/admin/zaproxy/demo_Dev_ZAP_VULNERABILITY_REPORT.xml' -o /var/jenkins_home/jobs/sitespeed/builds/archive/out/demo_Dev_ZAP_VULNERABILITY_REPORT.xml"
+               sh "curl -u admin:zippyops -X GET 'http://192.168.8.10/remote.php/dav/files/admin/zaproxy/demo_Dev_ZAP_VULNERABILITY_REPORT.html' -o /var/jenkins_home/jobs/demo/builds/archive/out/demo_Dev_ZAP_VULNERABILITY_REPORT.html"
+               sh "curl -u admin:zippyops -X GET 'http://192.168.8.10/remote.php/dav/files/admin/zaproxy/demo_Dev_ZAP_VULNERABILITY_REPORT.xml' -o /var/jenkins_home/jobs/demo/builds/archive/out/demo_Dev_ZAP_VULNERABILITY_REPORT.xml"
              }
            }
       }
