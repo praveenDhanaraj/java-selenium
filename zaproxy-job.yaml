@@ -21,8 +21,8 @@ data:
     ls /out/
     #curl -u admin:zippyops -X PUT "http://jfrog-artifactory.jcr.svc.cluster.local:8082/artifactory/example-repo-local/demo_Dev_ZAP_VULNERABILITY_REPORT.html" -T /out/demo_Dev_ZAP_VULNERABILITY_REPORT.html
     #curl -u admin:zippyops -X PUT "http://jfrog-artifactory.jcr.svc.cluster.local:8082/artifactory/example-repo-local/demo_Dev_ZAP_VULNERABILITY_REPORT.xml" -T /out/demo_Dev_ZAP_VULNERABILITY_REPORT.xml
-    curl -u admin:zippyops -X PUT --upload-file /out/demo_Dev_ZAP_VULNERABILITY_REPORT.html 'http://192.168.8.10/remote.php/dav/files/zaproxy'
-    curl -u admin:zippyops -X PUT --upload-file /out/demo_Dev_ZAP_VULNERABILITY_REPORT.xml 'http://192.168.8.10/remote.php/dav/files/zaproxy'
+    curl -u admin:zippyops -X PUT --upload-file /out/demo_Dev_ZAP_VULNERABILITY_REPORT.html 'http://nextcloud.jcr.svc.cluster.local/remote.php/dav/files/admin/zaproxy'
+    curl -u admin:zippyops -X PUT --upload-file /out/demo_Dev_ZAP_VULNERABILITY_REPORT.xml 'http://nextcloud.jcr.svc.cluster.local/remote.php/dav/files/admin/zaproxy'
 
 kind: ConfigMap
 metadata:
