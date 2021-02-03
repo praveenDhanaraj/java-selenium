@@ -1,7 +1,7 @@
 apiVersion: v1
 data:
   script.sh: |-
-    sleep 5m
+    sleep 1m
     apt-get update && \
     apt-get -y install apt-transport-https \
          ca-certificates \
@@ -21,7 +21,6 @@ data:
     ls /out/
     curl -u admin:zippyops -X PUT "http://jfrog-artifactory.jcr.svc.cluster.local:8082/artifactory/example-repo-local/demo_Dev_ZAP_VULNERABILITY_REPORT.html" -T /out/demo_Dev_ZAP_VULNERABILITY_REPORT.html
     curl -u admin:zippyops -X PUT "http://jfrog-artifactory.jcr.svc.cluster.local:8082/artifactory/example-repo-local/demo_Dev_ZAP_VULNERABILITY_REPORT.xml" -T /out/demo_Dev_ZAP_VULNERABILITY_REPORT.xml
-    sleep 10m
 kind: ConfigMap
 metadata:
   name: zap-configmap
