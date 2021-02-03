@@ -19,8 +19,11 @@ data:
     chmod 777 /out/
     docker run --rm -v /out:/zap/wrk/:rw -t owasp/zap2docker-live zap-baseline.py   -t http://15.206.11.209  -d -r demo_Dev_ZAP_VULNERABILITY_REPORT.html -x  demo_Dev_ZAP_VULNERABILITY_REPORT.xml
     ls /out/
-    curl -u admin:zippyops -X PUT "http://jfrog-artifactory.jcr.svc.cluster.local:8082/artifactory/example-repo-local/demo_Dev_ZAP_VULNERABILITY_REPORT.html" -T /out/demo_Dev_ZAP_VULNERABILITY_REPORT.html
-    curl -u admin:zippyops -X PUT "http://jfrog-artifactory.jcr.svc.cluster.local:8082/artifactory/example-repo-local/demo_Dev_ZAP_VULNERABILITY_REPORT.xml" -T /out/demo_Dev_ZAP_VULNERABILITY_REPORT.xml
+    #curl -u admin:zippyops -X PUT "http://jfrog-artifactory.jcr.svc.cluster.local:8082/artifactory/example-repo-local/demo_Dev_ZAP_VULNERABILITY_REPORT.html" -T /out/demo_Dev_ZAP_VULNERABILITY_REPORT.html
+    #curl -u admin:zippyops -X PUT "http://jfrog-artifactory.jcr.svc.cluster.local:8082/artifactory/example-repo-local/demo_Dev_ZAP_VULNERABILITY_REPORT.xml" -T /out/demo_Dev_ZAP_VULNERABILITY_REPORT.xml
+    curl -u admin:zippyops -X PUT --upload-file /out/demo_Dev_ZAP_VULNERABILITY_REPORT.html 'http://192.168.8.10/remote.php/dav/files/zaproxy'
+    curl -u admin:zippyops -X PUT --upload-file /out/demo_Dev_ZAP_VULNERABILITY_REPORT.xml 'http://192.168.8.10/remote.php/dav/files/zaproxy'
+
 kind: ConfigMap
 metadata:
   name: zap-configmap
