@@ -196,12 +196,22 @@ stages {
        stage("ZAProxy") {
            steps {
            script {
+             sh 'kubectl delete job zaproxy-job -n jcr'
              sh 'ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4) && sed -i "s/http:\\/\\/15.206.11.209/http:\\/\\/zippyops:zippyops\\@$ip:8080\\/newapp-0.0.1-SNAPSHOT\\//g" /var/jenkins_home/workspace/demo/zaproxy-job.yaml'
              sh 'kubectl apply -f /var/jenkins_home/workspace/demo/zaproxy-job.yaml'
-             sh 'kubectl get po'
             }
            }
           }
+         stage("ZAProxy_report") {
+           steps{
+             script {
+               sh 'sleep 7m'
+               sh "curl -u admin:zippyops -X GET 'http://192.168.8.10/remote.php/dav/files/admin/zaproxy/demo_Dev_ZAP_VULNERABILITY_REPORT.html' -o /var/jenkins_home/jobs/sitespeed/builds/archive/out/demo_Dev_ZAP_VULNERABILITY_REPORT.html"
+               sh "curl -u admin:zippyops -X GET 'http://192.168.8.10/remote.php/dav/files/admin/zaproxy/demo_Dev_ZAP_VULNERABILITY_REPORT.xml' -o /var/jenkins_home/jobs/sitespeed/builds/archive/out/demo_Dev_ZAP_VULNERABILITY_REPORT.xml"
+             }
+           }
+      }
+
     }
 
   post {
@@ -212,7 +222,7 @@ stages {
             keepAll: true,
             reportDir: '/var/jenkins_home/jobs/demo/builds/archive/out',
             reportFiles: 'demo_Dev_ZAP_VULNERABILITY_REPORT.html',
-            reportName: 'Dev_owaps'
+            reportName: 'Dev_ZAP_VULNERABILITY_REPORT'
               ]
             }
         }
