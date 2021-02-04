@@ -227,7 +227,9 @@ stages {
            steps{
              script {
                sh 'sleep 10m'
-               sh "curl -u admin:zippyops -X GET 'http://nextcloud.jcr.svc.cluster.local/remote.php/dav/files/admin/zaproxy/demo_Dev_ZAP_VULNERABILITY_REPORT.html' -o /var/jenkins_home/jobs/demo/builds/archive/out/demo_Dev_ZAP_VULNERABILITY_REPORT.html"
+               sh '''rm -rf /var/jenkins_home/jobs/demo/builds/archive/out/*
+
+'''               sh "curl -u admin:zippyops -X GET 'http://nextcloud.jcr.svc.cluster.local/remote.php/dav/files/admin/zaproxy/demo_Dev_ZAP_VULNERABILITY_REPORT.html' -o /var/jenkins_home/jobs/demo/builds/archive/out/demo_Dev_ZAP_VULNERABILITY_REPORT.html"
                sh "curl -u admin:zippyops -X GET 'http://nextcloud.jcr.svc.cluster.local/remote.php/dav/files/admin/zaproxy/demo_Dev_ZAP_VULNERABILITY_REPORT.xml' -o /var/jenkins_home/jobs/demo/builds/archive/out/demo_Dev_ZAP_VULNERABILITY_REPORT.xml"
              }
            }
