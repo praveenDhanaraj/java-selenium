@@ -1,6 +1,7 @@
 apiVersion: v1
 data:
   script.sh: |-
+    sleep 1m
     apt-get update && \
     apt-get -y install apt-transport-https \
          ca-certificates \
