@@ -208,16 +208,6 @@ stages {
              }
            }
        }
-         stage("ZAProxy_report") {
-           steps{
-             script {
-               sh 'sleep 7m'
-               sh "curl -u admin:zippyops -X GET 'http://192.168.8.10/remote.php/dav/files/admin/zaproxy/demo_Dev_ZAP_VULNERABILITY_REPORT.html' -o /var/jenkins_home/jobs/demo/builds/archive/out/demo_Dev_ZAP_VULNERABILITY_REPORT.html"
-               sh "curl -u admin:zippyops -X GET 'http://192.168.8.10/remote.php/dav/files/admin/zaproxy/demo_Dev_ZAP_VULNERABILITY_REPORT.xml' -o /var/jenkins_home/jobs/demo/builds/archive/out/demo_Dev_ZAP_VULNERABILITY_REPORT.xml"
-             }
-           }
-      }
-
         stage("sitespeed") {
            steps {
              script {
@@ -233,16 +223,22 @@ stages {
              }
            }
        }
-      stage("sitespeed_report") {
+      stage("ZAProxy_report") {
            steps{
              script {
                sh 'sleep 8m'
+               sh "curl -u admin:zippyops -X GET 'http://192.168.8.10/remote.php/dav/files/admin/zaproxy/demo_Dev_ZAP_VULNERABILITY_REPORT.html' -o /var/jenkins_home/jobs/demo/builds/archive/out/demo_Dev_ZAP_VULNERABILITY_REPORT.html"
+               sh "curl -u admin:zippyops -X GET 'http://192.168.8.10/remote.php/dav/files/admin/zaproxy/demo_Dev_ZAP_VULNERABILITY_REPORT.xml' -o /var/jenkins_home/jobs/demo/builds/archive/out/demo_Dev_ZAP_VULNERABILITY_REPORT.xml"
+             }
+           }
+      }
+      stage("sitespeed_report") {
+           steps{
+             script {
                sh "curl -u admin:zippyops -X GET 'http://nextcloud.jcr.svc.cluster.local/remote.php/dav/files/admin/sitespeed/index.html' -o /var/jenkins_home/jobs/demo/builds/archive/out/index.html"
              }
            }
       }
-
-
     }
 
   post {
