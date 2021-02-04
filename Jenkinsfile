@@ -218,6 +218,31 @@ stages {
            }
       }
 
+        stage("sitespeed") {
+           steps {
+             script {
+                 sh '''job=$(kubectl get job -n jcr  | grep sitespeed-job | wc -l)
+                 if [ $job -eq 1 ]; then
+                    kubectl delete job sitespeed-job -n jcr
+                    ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4) && sed -i "s/http:\\/\\/15.206.11.209/http:\\/\\/zippyops:zippyops\\@$ip:8080\\/newapp-0.0.1-SNAPSHOT\\//g" /var/jenkins_home/workspace/demo/sitespeed-job.yaml
+                    kubectl apply -f  /var/jenkins_home/workspace/demo/sitespeed-job.yaml
+                else
+                    ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4) && sed -i "s/http:\\/\\/15.206.11.209/http:\\/\\/zippyops:zippyops\\@$ip:8080\\/newapp-0.0.1-SNAPSHOT\\//g" /var/jenkins_home/workspace/demo/sitespeed-job.yaml
+                    kubectl apply -f  /var/jenkins_home/workspace/demo/sitespeed-job.yaml    
+                fi'''
+             }
+           }
+       }
+      stage("sitespeed_report") {
+           steps{
+             script {
+               sh 'sleep 8m'
+               sh "curl -u admin:zippyops -X GET 'http://nextcloud.jcr.svc.cluster.local/remote.php/dav/files/admin/sitespeed/index.html' -o /var/jenkins_home/jobs/demo/builds/archive/out/index.html"
+             }
+           }
+      }
+
+
     }
 
   post {
@@ -230,6 +255,15 @@ stages {
             reportFiles: 'demo_Dev_ZAP_VULNERABILITY_REPORT.html',
             reportName: 'Dev_ZAP_VULNERABILITY_REPORT'
               ]
+            publishHTML target: [
+            allowMissing: false,
+            alwaysLinkToLastBuild: true,
+            keepAll: true,
+            reportDir: '/var/jenkins_home/jobs/demo/builds/archive/out',
+            reportFiles: 'index.html',
+            reportName: 'Dev_speedtest'
+              ]
+
             }
         }
 
