@@ -214,6 +214,7 @@ stages {
                  sh '''job=$(kubectl get job -n jcr  | grep sitespeed-job | wc -l)
                  if [ $job -eq 1 ]; then
                     kubectl delete job sitespeed-job -n jcr
+                    sleep 1m 
                     ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4) && sed -i "s/http:\\/\\/15.206.11.209/http:\\/\\/zippyops:zippyops\\@$ip:8080\\/newapp-0.0.1-SNAPSHOT\\//g" /var/jenkins_home/workspace/demo/sitespeed-job.yaml
                     kubectl apply -f  /var/jenkins_home/workspace/demo/sitespeed-job.yaml
                 else
