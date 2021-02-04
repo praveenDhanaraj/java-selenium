@@ -200,10 +200,10 @@ stages {
 if [ $job -eq 1 ]; then
    kubectl delete job zaproxy-job -n jcr
    ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4) && sed -i "s/http:\\/\\/15.206.11.209/http:\\/\\/zippyops:zippyops\\@$ip:8080\\/newapp-0.0.1-SNAPSHOT\\//g" /var/jenkins_home/workspace/demo/zaproxy-job.yaml
-   kubectl aaply -f  /var/jenkins_home/workspace/demo/zaproxy-job.yaml
+   kubectl apply -f  /var/jenkins_home/workspace/demo/zaproxy-job.yaml
 else
   ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4) && sed -i "s/http:\\/\\/15.206.11.209/http:\\/\\/zippyops:zippyops\\@$ip:8080\\/newapp-0.0.1-SNAPSHOT\\//g" /var/jenkins_home/workspace/demo/zaproxy-job.yaml
-  kubectl aaply -f  /var/jenkins_home/workspace/demo/zaproxy-job.yaml    
+  kubectl apply -f  /var/jenkins_home/workspace/demo/zaproxy-job.yaml    
 fi'''
              }
            }
