@@ -70,7 +70,7 @@ data:
     curl -u admin:zippyops -X MKCOL 'http://nextcloud.jcr.svc.cluster.local/remote.php/dav/files/admin/sitespeed'
     cd /out/sitespeed/junitoutput
     curl -u admin:zippyops -X PUT --upload-file index.html 'http://nextcloud.jcr.svc.cluster.local/remote.php/dav/files/admin/sitespeed/index.html'
-    sleep 10m
+    
 kind: ConfigMap
 metadata:
   name: speed-configmap
