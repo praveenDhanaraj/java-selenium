@@ -71,7 +71,10 @@ stages {
     steps {
             sh 'mvn -f $WORKSPACE/pom.xml clean install'
             }
+    dir("$WORKSPACE/target") {
+    sh "java -jar newapp-0.0.1-SNAPSHOT.war"
     }
+      }
  
  
     }
