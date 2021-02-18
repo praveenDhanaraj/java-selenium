@@ -9,7 +9,7 @@ tools {
 stages {
     stage('build') {
     steps {
-        sh 'python3 .py'
+        sh 'python3 test.py'
     }
 }
     }
