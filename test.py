@@ -1,13 +1,26 @@
-import unittest
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-import time
-import socket
-driver = webdriver.Remote(command_executor='http://selenium-hub.hema.svc.cluster.local:4444/wd/hub',
-              desired_capabilities=DesiredCapabilities.CHROME)
-driver.get("https://www.google.co.in/")
-print(driver.title)
-print(socket.gethostname())
-driver.quit()
+package session_2;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+ 
+public class jenkins_demo
+{
+ 
+@Test
+publicvoidtestgooglrsearch(){
+ 
+WebDriver driver = newFirefoxDriver();
+//it will open the goggle page
+driver.get("http://google.in"); 
+//we expect the title “Google “ should be present 
+String Expectedtitle = "Google";
+//it will fetch the actual title 
+String Actualtitle = driver.getTitle();
+System.out.println("Before Assetion " + Expectedtitle + Actualtitle);
+//it will compare actual title and expected title
+Assert.assertEquals(Actualtitle, Expectedtitle);
+//print out the result
+System.out.println("After Assertion " + Expectedtitle + Actualtitle + " Title matched ");
+ }
+}
