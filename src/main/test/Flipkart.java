@@ -14,17 +14,21 @@ import org.testng.annotations.Test;
 
 public class Flipkart{
 
-	WebDriver driver = new FirefoxDriver();
-	String username = ""; // Change to your username and passwrod
-	String password = "";
+     WebDriver driver;
+     String baseURL, nodeURL;
 
-	// This method is to navigate flipkart URL
-	@BeforeClass
-	public void init() {
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-		driver.navigate().to("https://www.flipkart.com");
-	}
+     @BeforeTest
+     public void setUp() throws MalformedURLException {
+         baseURL = "https://www.flipkart.com";
+         nodeURL = "http://selenium-hub.hema.svc.cluster.local:4444/wd/hub";
+         DesiredCapabilities capability = DesiredCapabilities.chrome();
+         capability.setBrowserName("chrome");
+         capability.setPlatform(Platform.LINUX);
+         driver = new RemoteWebDriver(new URL(nodeURL), capability);
+     }
+
+
+
 
 	// To log in flipkart
 	@Test
