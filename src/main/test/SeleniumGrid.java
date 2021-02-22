@@ -15,7 +15,7 @@
      @BeforeTest
      public void setUp() throws MalformedURLException {
          baseURL = "http://demo.guru99.com/test/guru99home/";
-         nodeURL = "http://192.168.8.20:4444/wd/hub";
+         nodeURL = "http://selenium-hub.hema.svc.cluster.local:4444/wd/hub";
          DesiredCapabilities capability = DesiredCapabilities.chrome();
          capability.setBrowserName("chrome");
          capability.setPlatform(Platform.WIN10);
