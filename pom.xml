@@ -34,10 +34,10 @@
       </plugin>
       <plugin>
       	<groupId>org.testng</groupId>
-			  <artifactId>testng</artifactId>
-			  <version>6.14.3</version>
-		  	<scope>test</scope>
-		  </plugin>
+	<artifactId>testng</artifactId>
+	<version>6.14.3</version>
+	<scope>test</scope>
+	</plugin>
     </plugins>
   </build>
 </project>
