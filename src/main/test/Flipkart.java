@@ -26,6 +26,10 @@ public class Flipkart{
 
      WebDriver driver;
      String baseURL, nodeURL;
+     String username = ""; // Change to your username and passwrod
+	 String password = "";
+	 String pinCode = "";
+
 
      @BeforeTest
      public void setUp() throws MalformedURLException {
