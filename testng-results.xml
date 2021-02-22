@@ -1,7 +1,9 @@
-<suite name="com.objectrepository.demo">
-	<test name="testngTest">
-		<classes>
-			<class name="com.objectrepository.demo.SeleniumGrid" />
-		</classes>
-	</test>
-</suite>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Test Suite">
+  <test name="Google Test">
+	<classes>
+  	<class name="com.objectrepository.demo.SeleniumGrid"/>
+	</classes>
+  </test> 
+</suite> 
