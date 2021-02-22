@@ -4,6 +4,7 @@
   <test name="SeleniumGrid">
 	<classes>
   	<class name="com.objectrepository.demo.SeleniumGrid"/>
+	<class name="com.suite1.Flipkart"/>
 	</classes>
   </test> 
 </suite> 
