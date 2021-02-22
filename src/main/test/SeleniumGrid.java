@@ -18,7 +18,7 @@
          nodeURL = "http://selenium-hub.hema.svc.cluster.local:4444/wd/hub";
          DesiredCapabilities capability = DesiredCapabilities.chrome();
          capability.setBrowserName("chrome");
-         capability.setPlatform(Platform.WIN10);
+         capability.setPlatform(Platform.LINUX);
          driver = new RemoteWebDriver(new URL(nodeURL), capability);
      }
 
