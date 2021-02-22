@@ -6,9 +6,4 @@
   	<class name="com.objectrepository.demo.SeleniumGrid"/>
 	</classes>
   </test>
-  <test name="flipcart">
-	<classes>
-	<class name="com.suite1.Flipkart"/>
-	</classes>
-  </test>  
 </suite> 
