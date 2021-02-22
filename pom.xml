@@ -32,6 +32,15 @@
         <artifactId>maven-war-plugin</artifactId>
         <version>3.2.1</version>
       </plugin>
+      <dependencies>
+      	<dependency>
+			  <groupId>org.testng</groupId>
+			  <artifactId>testng</artifactId>
+			  <version>6.14.3</version>
+		  	<scope>test</scope>
+		    </dependency>
+
+	    </dependencies>
     </plugins>
   </build>
 </project>
