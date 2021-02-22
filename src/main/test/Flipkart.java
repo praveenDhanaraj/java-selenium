@@ -36,7 +36,7 @@ public class Flipkart{
          baseURL = "https://www.flipkart.com";
          nodeURL = "http://selenium-hub.hema.svc.cluster.local:4444/wd/hub";
          DesiredCapabilities capability = DesiredCapabilities.chrome();
-         capability.setBrowserName("chrome");
+         capability.setBrowserName("firefox");
          capability.setPlatform(Platform.LINUX);
          driver = new RemoteWebDriver(new URL(nodeURL), capability);
      }
