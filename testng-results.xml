@@ -1,7 +1,7 @@
-<suite name="softwaretestingmaterial">
+<suite name="com.objectrepository.demo">
 	<test name="testngTest">
 		<classes>
-			<class name="softwareTestingMaterial.STMTestNGClass" />
+			<class name="com.objectrepository.demo.SeleniumGrid" />
 		</classes>
 	</test>
 </suite>
