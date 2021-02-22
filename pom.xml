@@ -4,6 +4,13 @@
   <artifactId>newapp</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
+  <dependencies>
+    <dependency>
+       <groupId>org.testng</groupId>
+       <artifactId>testng</artifactId>
+       <version>6.13.1</version>
+     </dependency>
+  </dependencies>
   <build>
     <testSourceDirectory>src/main/test</testSourceDirectory>
     <resources>
@@ -33,15 +40,5 @@
         <version>3.2.1</version>
       </plugin>
     </plugins>
-    <dependencies>
-      [...]
-      <dependency>
-        <groupId>org.testng</groupId>
-        <artifactId>testng</artifactId>
-        <version>6.9.8</version>
-        <scope>test</scope>
-      </dependency>
-      [...]
-    </dependencies>
   </build>
 </project>
