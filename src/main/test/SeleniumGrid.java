@@ -32,7 +32,18 @@
          
 
          if (driver.getPageSource().contains("JAVASCRIPT")) {
-             Assert.assertTrue(true, "Mobile Testing Link Found");
+             Assert.assertTrue(true, "java script Link Found");
+         } else {
+             Assert.assertTrue(false, "Failed: Link not found");
+         }
+
+     }
+    public void javalearning() {
+        driver.get(baseURL);
+         
+
+         if (driver.getPageSource().contains("Start learning JavaScript now »")) {
+             Assert.assertTrue(true, "learning Link Found");
          } else {
              Assert.assertTrue(false, "Failed: Link not found");
          }
