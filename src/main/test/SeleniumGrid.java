@@ -38,6 +38,7 @@
          }
 
      }
+    @Test
     public void javalearning() {
         driver.get(baseURL);
          
