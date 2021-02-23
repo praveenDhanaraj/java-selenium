@@ -2,8 +2,13 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite thread-count="1" verbose="1" name="Test Suite" annotations="JDK" parallel="tests">
   <test name="SeleniumGrid">
-	<classes>
-  	<class name="com.objectrepository.demo.SeleniumGrid"/>
-	</classes>
+        <classes>
+        <class name="com.objectrepository.demo.SeleniumGrid"/>
+        </classes>
   </test>
-</suite> 
+  <test name="flipkart">
+        <classes>
+        <class name="com.sampletestpackage.Flipkart"/>
+        </classes>
+  </test>
+</suite>
