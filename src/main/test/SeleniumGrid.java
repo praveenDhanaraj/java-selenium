@@ -39,9 +39,15 @@
 
      }
     @Test
-    public void javalearning() {
+    public void clickreferences() {
+    try
+    {
+    Thread.sleep(30); 
+    }
+    catch(Exception e)
+    {
         driver.get(baseURL);
         driver.findElement(By.id("topnavbtn_references")).click();
      }
-
+    }
  }
