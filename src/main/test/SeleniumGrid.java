@@ -41,14 +41,7 @@
     @Test
     public void javalearning() {
         driver.get(baseURL);
-         
-
-         if (driver.getPageSource().contains("Start learning JavaScript now »")) {
-             Assert.assertTrue(true, "learning Link Found");
-         } else {
-             Assert.assertTrue(false, "Failed: Link not found");
-         }
-
+        driver.findElement(By.id("topnavbtn_references")).click();
      }
 
  }
