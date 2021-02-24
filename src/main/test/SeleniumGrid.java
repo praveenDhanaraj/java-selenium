@@ -17,7 +17,7 @@
          baseURL = "https://www.w3schools.com/java/default.asp";
          nodeURL = "http://selenium-hub.hema.svc.cluster.local:4444/wd/hub";
          ChromeOptions options = new ChromeOptions();
-         capability.setBrowserName("chrome");
+         DesiredCapabilities capability = DesiredCapabilities.chrome();
          capability.setPlatform(Platform.LINUX);
          System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
          driver = new RemoteWebDriver(new URL(nodeURL), capability);
