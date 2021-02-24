@@ -64,7 +64,7 @@
      }
     }
 
-        @Test
+    @Test
     public void searchingkeywords() {
     try
     {
@@ -76,5 +76,16 @@
         driver.findElement(By.className("bigbtn")).click();
      }
     }
-
+    @Test
+    public void continuekeyword() {
+    try
+    {
+    Thread.sleep(2000); 
+    }
+    catch(Exception e)
+    {
+        driver.get(baseURL);
+        driver.findElement(By.className("continue")).click();
+     }
+    }
  }
