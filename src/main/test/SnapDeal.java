@@ -35,6 +35,7 @@ public class SnapDeal {
          DesiredCapabilities capability = DesiredCapabilities.chrome();
          capability.setBrowserName("chrome");
          capability.setPlatform(Platform.LINUX);
+		 System.setProperty("webdriver.chrome.driver", "C:/PathToChromeDriver/chromedriver.exe");
          driver = new RemoteWebDriver(new URL(nodeURL), capability);
 }
 
