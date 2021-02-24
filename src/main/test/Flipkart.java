@@ -44,7 +44,7 @@ public void setUp() throws MalformedURLException {
 public void login() {
 try
 {
-Thread.sleep(30);
+Thread.sleep(2000);
 }
 catch(Exception e)
 {
@@ -64,7 +64,7 @@ driver.findElement(By.cssSelector("input[value='Login'][class='submit-btn login-
 public void searchAndSelectProduct() {
 try
 {
-Thread.sleep(30);
+Thread.sleep(2000);
 }
 catch(Exception e)
 {
@@ -84,7 +84,7 @@ driver.findElement(By.cssSelector(css)).click();
 public void addAndRemoveFromCart() {
 try
 {
-Thread.sleep(30);
+Thread.sleep(2000);
 }
 catch(Exception e)
 {
@@ -101,7 +101,7 @@ a.accept();
 public void logout() {
 try
 {
-Thread.sleep(30);
+Thread.sleep(2000);
 }
 catch(Exception e)
 {
