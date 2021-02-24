@@ -46,7 +46,7 @@ public class SnapDeal {
 	public void login() {
 try
 {
-Thread.sleep(30);
+Thread.sleep(2000);
 }
 catch(Exception e)
 {
@@ -70,7 +70,7 @@ catch(Exception e)
 	public void searchAndSelectProduct() {
 try
 {
-Thread.sleep(30);
+Thread.sleep(2000);
 }
 catch(Exception e)
 {
@@ -89,7 +89,7 @@ catch(Exception e)
 
 try
 {
-Thread.sleep(30);
+Thread.sleep(2000);
 }
 catch(Exception e)
 {
@@ -108,7 +108,7 @@ catch(Exception e)
 	public void logout() {
 		try
         {
-        Thread.sleep(30);
+        Thread.sleep(2000);
         }
         catch(Exception e)
         {
