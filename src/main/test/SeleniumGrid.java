@@ -43,7 +43,7 @@
     public void clickreferences() {
     try
     {
-    Thread.sleep(30); 
+    Thread.sleep(2000); 
     }
     catch(Exception e)
     {
@@ -55,7 +55,7 @@
     public void pythonreferences() {
     try
     {
-    Thread.sleep(30); 
+    Thread.sleep(2000); 
     }
     catch(Exception e)
     {
@@ -68,7 +68,7 @@
     public void searchingkeywords() {
     try
     {
-    Thread.sleep(30); 
+    Thread.sleep(2000); 
     }
     catch(Exception e)
     {
