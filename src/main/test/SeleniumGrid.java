@@ -18,8 +18,8 @@
          nodeURL = "http://selenium-hub.hema.svc.cluster.local:4444/wd/hub";
          DesiredCapabilities capability = DesiredCapabilities.chrome();
          capability.setPlatform(Platform.LINUX);
-         System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
          driver = new RemoteWebDriver(new URL(nodeURL), capability);
+         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);         
      }
 
      @AfterTest
