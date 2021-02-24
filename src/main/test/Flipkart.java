@@ -35,8 +35,8 @@ public void setUp() throws MalformedURLException {
          nodeURL = "http://selenium-hub.hema.svc.cluster.local:4444/wd/hub";
          DesiredCapabilities capability = DesiredCapabilities.chrome();
          capability.setBrowserName("chrome");
-         System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
          capability.setPlatform(Platform.LINUX);
+         System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
          driver = new RemoteWebDriver(new URL(nodeURL), capability);
 }
 
