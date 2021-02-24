@@ -15,6 +15,19 @@
       <artifactId>selenium-java</artifactId>
       <version>3.141.59</version>
     </dependency>
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.13.1</version>
+        <scope>test</scope>
+    </dependency>
+        <!-- https://github.com/bonigarcia/webdrivermanager/ -->
+    <dependency>
+        <groupId>io.github.bonigarcia</groupId>
+        <artifactId>webdrivermanager</artifactId>
+        <version>4.0.0</version>
+        <scope>test</scope>
+    </dependency>
   </dependencies>
   <build>
     <testSourceDirectory>src/main/test</testSourceDirectory>
