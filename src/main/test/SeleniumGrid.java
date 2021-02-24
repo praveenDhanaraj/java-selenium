@@ -64,4 +64,17 @@
      }
     }
 
+        @Test
+    public void searchingkeywords() {
+    try
+    {
+    Thread.sleep(30); 
+    }
+    catch(Exception e)
+    {
+        driver.get(baseURL);
+        driver.findElement(By.className("bigbtn")).click();
+     }
+    }
+
  }
