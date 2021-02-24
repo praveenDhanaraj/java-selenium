@@ -50,4 +50,17 @@
         driver.findElement(By.id("topnavbtn_references")).click();
      }
     }
+    @Test
+    public void pythonreferences() {
+    try
+    {
+    Thread.sleep(30); 
+    }
+    catch(Exception e)
+    {
+        driver.get(baseURL);
+        driver.findElement(By.className("w3-bar-item w3-button")).click();
+     }
+    }
+
  }
