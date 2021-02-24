@@ -33,7 +33,7 @@ public class Flipkart {
 public void setUp() throws MalformedURLException {
          baseURL = "https://www.flipkart.com";
          nodeURL = "http://selenium-hub.hema.svc.cluster.local:4444/wd/hub";
-         DesiredCapabilities capability = DesiredCapabilities.chrome();
+         ChromeOptions options = new ChromeOptions();
          capability.setBrowserName("chrome");
          capability.setPlatform(Platform.LINUX);
          System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
