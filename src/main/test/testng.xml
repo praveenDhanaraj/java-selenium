@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite thread-count="1" verbose="1" name="Test Suite" annotations="JDK" parallel="tests">
+<suite thread-count="10" verbose="2" name="Test Suite" annotations="JDK" parallel="tests">
   <test name="SeleniumGrid">
         <classes>
         <class name="com.objectrepository.demo.SeleniumGrid"/>
