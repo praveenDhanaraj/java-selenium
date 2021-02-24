@@ -28,6 +28,11 @@
         <version>4.0.0</version>
         <scope>test</scope>
     </dependency>
+    <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-chrome-driver</artifactId>
+        <version>88.0.4324.96</version>
+    </dependency>
   </dependencies>
   <build>
     <testSourceDirectory>src/main/test</testSourceDirectory>
