@@ -88,4 +88,16 @@
         driver.findElement(By.className("continue")).click();
      }
     }
+        @Test
+    public void clicknext() {
+    try
+    {
+    Thread.sleep(2000); 
+    }
+    catch(Exception e)
+    {
+        driver.get(baseURL);
+        driver.findElement(By.className("w3-right w3-btn")).click();
+     }
+    }
  }
