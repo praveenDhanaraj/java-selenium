@@ -11,13 +11,21 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.openqa.selenium.*;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import java.net.URL;
+import java.net.MalformedURLException;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.Assert;
+import org.testng.annotations.*;
 
 public class SnapDeal {
 
-	WebDriver driver = new FirefoxDriver();
 	String username = ""; // Change to your username and passwrod
 	String password = "";
 	String pinCode = "";
+	WebDriver driver;
+    String baseURL, nodeURL;
 
 	// This method is to navigate snapdeal URL
 	@BeforeClass
