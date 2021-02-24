@@ -18,6 +18,7 @@ import java.net.MalformedURLException;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
+import java.util.concurrent.TimeUnit;
 
 public class SnapDeal {
 
@@ -35,8 +36,8 @@ public class SnapDeal {
          DesiredCapabilities capability = DesiredCapabilities.chrome();
          capability.setBrowserName("chrome");
          capability.setPlatform(Platform.LINUX);
-		 System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
-         driver = new RemoteWebDriver(new URL(nodeURL), capability);
+		 driver = new RemoteWebDriver(new URL(nodeURL), capability);
+		 driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 }
 
 
