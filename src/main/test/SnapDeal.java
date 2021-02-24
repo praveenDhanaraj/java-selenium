@@ -35,7 +35,7 @@ public class SnapDeal {
          DesiredCapabilities capability = DesiredCapabilities.chrome();
          capability.setBrowserName("chrome");
          capability.setPlatform(Platform.LINUX);
-		 System.setProperty("webdriver.chrome.driver", "C:/PathToChromeDriver/chromedriver.exe");
+		 System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
          driver = new RemoteWebDriver(new URL(nodeURL), capability);
 }
 
@@ -43,6 +43,12 @@ public class SnapDeal {
 	// To log in flipkart
 	@Test
 	public void login() {
+try
+{
+Thread.sleep(30);
+}
+catch(Exception e)
+{
 		driver.findElement(By.xpath("//button[text()='Login']")).click();
 
 		driver.switchTo().frame("loginIframe");
@@ -56,10 +62,17 @@ public class SnapDeal {
 
 		driver.switchTo().defaultContent();
 	}
+	}
 
 	// Search For product
 	@Test
 	public void searchAndSelectProduct() {
+try
+{
+Thread.sleep(30);
+}
+catch(Exception e)
+{
 		driver.findElement(By.cssSelector(".col-xs-20.searchformInput.keyword"))
 				.sendKeys("iphone 6s");
 		driver.findElement(By.cssSelector(".sd-icon.sd-icon-search")).click();
@@ -68,10 +81,17 @@ public class SnapDeal {
 		String css = ".product_grid_row:nth-of-type(1)>div:nth-child(1)";
 		driver.findElement(By.cssSelector(css)).click();
 	}
+	}
 
 	@Test
 	public void buyAndRemoveFromCart() {
 
+try
+{
+Thread.sleep(30);
+}
+catch(Exception e)
+{
 		driver.findElement(By.xpath("//li[contains(text(),'Silver')]")).click();
 		driver.findElement(By.id("pincode-check")).sendKeys(pinCode);
 		driver.findElement(By.id("buy-button-id")).click();
@@ -80,9 +100,17 @@ public class SnapDeal {
 		Alert a = driver.switchTo().alert();	
 		a.accept();
 	}
+	}
+
 
 	@Test
 	public void logout() {
+		try
+        {
+        Thread.sleep(30);
+        }
+        catch(Exception e)
+        {
 		
 		driver.findElement(By.linkText("START SHOPPING NOW")).click();
 		Actions s = new Actions(driver);
@@ -90,7 +118,8 @@ public class SnapDeal {
 		s.moveToElement(user).build().perform();
 		driver.findElement(By.linkText("Logout")).click();
 	}
-
+	}
+	
 	@AfterClass
 	public void quit() {
 		driver.close();
