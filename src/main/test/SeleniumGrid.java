@@ -16,7 +16,7 @@
      public void setUp() throws MalformedURLException {
          baseURL = "https://www.w3schools.com/java/default.asp";
          nodeURL = "http://selenium-hub.hema.svc.cluster.local:4444/wd/hub";
-         DesiredCapabilities capability = DesiredCapabilities.chrome();
+         ChromeOptions options = new ChromeOptions();
          capability.setBrowserName("chrome");
          capability.setPlatform(Platform.LINUX);
          System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
