@@ -80,36 +80,6 @@ driver.findElement(By.cssSelector(css)).click();
 }
 }
 
-@Test
-public void addAndRemoveFromCart() {
-try
-{
-Thread.sleep(2000);
-}
-catch(Exception e)
-{
-driver.findElement(
-By.cssSelector(".btn-express-checkout.btn-big.current"))
-.click();
-driver.findElement(By.cssSelector(".remove.fk-inline-block")).click();
-Alert a = driver.switchTo().alert();
-a.accept();
-}
-}
-
-@Test
-public void logout() {
-try
-{
-Thread.sleep(2000);
-}
-catch(Exception e)
-{
-Actions act = new Actions(driver);
-WebElement user = driver.findElement(By.partialLinkText(username));
-act.moveToElement(user).build().perform();
-driver.findElement(By.linkText("Logout")).click();
-}
 }
 
 @AfterClass
