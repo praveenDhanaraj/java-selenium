@@ -45,10 +45,10 @@ public void login() {
 try
 {
 Thread.sleep(3000);
-
-driver.findElement(By.partialLinkText("Login")).click();
+}
 catch(Exception e)
 {
+driver.findElement(By.partialLinkText("Login")).click();
 driver.findElement(
 By.cssSelector("input[placeholder='Enter email/mobile']"))
 .sendKeys(username);
@@ -59,19 +59,17 @@ driver.findElement(By.cssSelector("input[value='Login'][class='submit-btn login-
 }
 }
 
-}
-
 // Search For product
 @Test
 public void searchAndSelectProduct() {
 try
 {
-Thread.sleep(2000);
-
-//driver.findElement(By.id("fk-top-search-box")).sendKeys("moto g3");
-driver.findElement(By.name("q")).sendKeys("moto g3");
+Thread.sleep(4000);
+}
 catch(Exception e)
 {
+//driver.findElement(By.id("fk-top-search-box")).sendKeys("moto g3");
+driver.findElement(By.name("q")).sendKeys("moto g3");
 driver.findElement(
 By.cssSelector("search-bar-submit.fk-font-13.fk-font-bold"))
 .click();
@@ -81,12 +79,42 @@ String css = ".gd-row.browse-grid-row:nth-of-type(1) > div:nth-child(1)>div>div:
 driver.findElement(By.cssSelector(css)).click();
 }
 }
+
+@Test
+public void addAndRemoveFromCart() {
+try
+{
+Thread.sleep(4000);
+}
+catch(Exception e)
+{
+driver.findElement(
+By.cssSelector(".btn-express-checkout.btn-big.current"))
+.click();
+driver.findElement(By.cssSelector(".remove.fk-inline-block")).click();
+Alert a = driver.switchTo().alert();
+a.accept();
+}
 }
 
-
+@Test
+public void logout() {
+try
+{
+Thread.sleep(3000);
+}
+catch(Exception e)
+{
+Actions act = new Actions(driver);
+WebElement user = driver.findElement(By.partialLinkText(username));
+act.moveToElement(user).build().perform();
+driver.findElement(By.linkText("Logout")).click();
+}
+}
 
 @AfterClass
 public void quit() {
 driver.close();
 }
+
 }
