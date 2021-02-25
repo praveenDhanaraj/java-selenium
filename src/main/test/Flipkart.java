@@ -47,6 +47,8 @@ try
 Thread.sleep(3000);
 
 driver.findElement(By.partialLinkText("Login")).click();
+catch(Exception e)
+{
 driver.findElement(
 By.cssSelector("input[placeholder='Enter email/mobile']"))
 .sendKeys(username);
@@ -55,9 +57,8 @@ By.cssSelector("input[placeholder='Enter password']"))
 .sendKeys(password);
 driver.findElement(By.cssSelector("input[value='Login'][class='submit-btn login-btn btn']")).click();
 }
-catch(Exception e)
-{
 }
+
 }
 
 // Search For product
@@ -69,6 +70,8 @@ Thread.sleep(2000);
 
 //driver.findElement(By.id("fk-top-search-box")).sendKeys("moto g3");
 driver.findElement(By.name("q")).sendKeys("moto g3");
+catch(Exception e)
+{
 driver.findElement(
 By.cssSelector("search-bar-submit.fk-font-13.fk-font-bold"))
 .click();
@@ -77,8 +80,6 @@ By.cssSelector("search-bar-submit.fk-font-13.fk-font-bold"))
 String css = ".gd-row.browse-grid-row:nth-of-type(1) > div:nth-child(1)>div>div:nth-child(2)>div>a";
 driver.findElement(By.cssSelector(css)).click();
 }
-catch(Exception e)
-{
 }
 }
 
