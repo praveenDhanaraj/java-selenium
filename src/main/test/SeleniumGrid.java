@@ -21,7 +21,7 @@
          baseURL = "https://www.w3schools.com/java/default.asp";
          nodeURL = "http://selenium-hub.hema.svc.cluster.local:4444/wd/hub";
          DesiredCapabilities capability = DesiredCapabilities.chrome();
-         RemoteWebDriver.chromedriver().browserVersion("88.0.4324.96").setup();
+         WebDriverManager.chromedriver().browserVersion("88.0.4324.96").setup();
          capability.setPlatform(Platform.LINUX);
          driver = new RemoteWebDriver(new URL(nodeURL), capability);
          driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);         
