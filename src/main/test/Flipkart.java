@@ -80,10 +80,10 @@ driver.findElement(By.cssSelector(css)).click();
 }
 }
 
-}
+
 
 @AfterClass
 public void quit() {
 driver.close();
 }
-
+}
