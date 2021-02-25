@@ -7,10 +7,7 @@
  import org.testng.Assert;
  import org.testng.annotations.*;
  import java.util.concurrent.TimeUnit;
- import org.openqa.selenium.WebDriver;
- import org.openqa.selenium.chrome.ChromeDriver;
- import io.github.bonigarcia.wdm.WebDriverManager;
-
+ 
  public class SeleniumGrid {
 
      WebDriver driver;
@@ -21,7 +18,6 @@
          baseURL = "https://www.w3schools.com/java/default.asp";
          nodeURL = "http://selenium-hub.hema.svc.cluster.local:4444/wd/hub";
          DesiredCapabilities capability = DesiredCapabilities.chrome();
-         WebDriverManager.chromedriver().browserVersion("88.0.4324.96").setup();
          capability.setPlatform(Platform.LINUX);
          driver = new RemoteWebDriver(new URL(nodeURL), capability);
          driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);         
