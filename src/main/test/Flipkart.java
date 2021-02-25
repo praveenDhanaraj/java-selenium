@@ -44,7 +44,7 @@ public void setUp() throws MalformedURLException {
 public void login() {
 try
 {
-Thread.sleep(2000);
+Thread.sleep(3000);
 
 driver.findElement(By.partialLinkText("Login")).click();
 driver.findElement(
