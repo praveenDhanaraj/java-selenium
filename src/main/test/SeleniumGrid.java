@@ -13,7 +13,7 @@
      WebDriver driver;
      String baseURL, nodeURL;
 
-     @BeforeTest
+     @BeforeClass
      public void setUp() throws MalformedURLException {
          baseURL = "https://www.w3schools.com/java/default.asp";
          nodeURL = "http://selenium-hub.hema.svc.cluster.local:4444/wd/hub";
@@ -23,7 +23,7 @@
          driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);         
      }
 
-     @AfterTest
+     @AfterClass
      public void afterTest() {
          driver.quit();
      }
@@ -88,7 +88,7 @@
         driver.findElement(By.className("continue")).click();
      }
     }
-        @Test
+    @Test
     public void clicknext() {
     try
     {
