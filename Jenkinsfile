@@ -179,6 +179,11 @@ stages {
             }
            }
           }
+stage ('TestNG Report Stage') {
+    steps {
+            step([$class: 'Publisher', reportFilenamePattern: '**/testng-results.xml'])
+            }
+    }
     }
 
   post {
