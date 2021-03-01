@@ -140,7 +140,7 @@ stages {
     stage('Docker Build') {
       agent any
       steps {
-        sh "docker build -t zippyops01/cicd-dockerimage:${readProb['DockerImageTag']}  /var/jenkins_home/workspace/demo/."
+        sh "docker build -t zippyops01/cicd-dockerimage:${readProb['DockerImageTag']}  /var/jenkins_home/workspace/test/."
       }
     }
 
@@ -181,8 +181,8 @@ stages {
                     if ("$Dev_deploy" == "yes") {
                   sh """
                   echo  $BUILD_NUMBER
-                  sed -i s/latest/$BUILD_NUMBER/g /var/jenkins_home/workspace/demo/deploy.yml
-                  kubectl apply -f /var/jenkins_home/workspace/demo/deploy.yml
+                  sed -i s/latest/$BUILD_NUMBER/g /var/jenkins_home/workspace/test/deploy.yml
+                  kubectl apply -f /var/jenkins_home/workspace/test/deploy.yml
                   """
                   sh 'sleep 55s'
                   sh 'ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4) && echo http://zippyops:zippyops@$ip:8080/newapp-0.0.1-SNAPSHOT/'
