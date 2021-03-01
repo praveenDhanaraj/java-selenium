@@ -84,7 +84,7 @@ stages {
     }
     stage ('Build Stage') {
     steps {
-            sh 'mvn -f $WORKSPACE/pom.xml clean install'
+            sh 'mvn -f $WORKSPACE/pom.xml clean test'
             }
     }
 
@@ -261,6 +261,15 @@ stages {
             reportFiles: 'index.html',
             reportName: 'Dev_speedtest'
               ]
+            publishHTML target: [
+            allowMissing: false,
+            alwaysLinkToLastBuild: true,
+            keepAll: true,
+            reportDir: '/var/jenkins_home/jobs/demo/builds/archive/out',
+            reportFiles: 'index.html',
+            reportName: 'Dev_Testng_Report'
+              ]
+
 
             }
         }
