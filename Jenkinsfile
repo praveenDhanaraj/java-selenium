@@ -179,54 +179,6 @@ stages {
             }
            }
           }
-      stage("ZAProxy") {
-           steps {
-             script {
-                 sh '''job=$(kubectl get job -n jcr  | grep zaproxy-job | wc -l)
-                 if [ $job -eq 1 ]; then
-                   kubectl delete job zaproxy-job -n jcr
-                   ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4) && sed -i "s/http:\\/\\/15.206.11.209/http:\\/\\/zippyops:zippyops\\@$ip:8080\\/newapp-0.0.1-SNAPSHOT\\//g" /var/jenkins_home/workspace/demo/zaproxy-job.yaml
-                   kubectl apply -f  /var/jenkins_home/workspace/demo/zaproxy-job.yaml
-                 else
-                   ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4) && sed -i "s/http:\\/\\/15.206.11.209/http:\\/\\/zippyops:zippyops\\@$ip:8080\\/newapp-0.0.1-SNAPSHOT\\//g" /var/jenkins_home/workspace/demo/zaproxy-job.yaml
-                   kubectl apply -f  /var/jenkins_home/workspace/demo/zaproxy-job.yaml    
-                 fi'''
-             }
-           }
-       }
-        stage("sitespeed") {
-           steps {
-             script {
-                 sh '''job=$(kubectl get job -n jcr  | grep sitespeed-job | wc -l)
-                 if [ $job -eq 1 ]; then
-                    kubectl delete job sitespeed-job -n jcr
-                    sleep 1m 
-                    ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4) && sed -i "s/http:\\/\\/15.206.11.209/http:\\/\\/zippyops:zippyops\\@$ip:8080\\/newapp-0.0.1-SNAPSHOT\\//g" /var/jenkins_home/workspace/demo/sitespeed-job.yaml
-                    kubectl apply -f  /var/jenkins_home/workspace/demo/sitespeed-job.yaml
-                else
-                    ip=$(kubectl get svc | grep tomcat | tr -s [:space:] \' \' | cut -d \' \' -f 4) && sed -i "s/http:\\/\\/15.206.11.209/http:\\/\\/zippyops:zippyops\\@$ip:8080\\/newapp-0.0.1-SNAPSHOT\\//g" /var/jenkins_home/workspace/demo/sitespeed-job.yaml
-                    kubectl apply -f  /var/jenkins_home/workspace/demo/sitespeed-job.yaml    
-                fi'''
-             }
-           }
-       }
-      stage("ZAProxy_report") {
-           steps{
-             script {
-               sh 'sleep 10m'
-               sh 'rm -rf /var/jenkins_home/jobs/demo/builds/archive/out/*'
-               sh "curl -u zippyops:zippyops01 -X GET 'http://nextcloud.jcr.svc.cluster.local/remote.php/dav/files/zippyops/zaproxy/demo_Dev_ZAP_VULNERABILITY_REPORT.html' -o /var/jenkins_home/jobs/demo/builds/archive/out/demo_Dev_ZAP_VULNERABILITY_REPORT.html"
-               sh "curl -u zippyops:zippyops01 -X GET 'http://nextcloud.jcr.svc.cluster.local/remote.php/dav/files/zippyops/zaproxy/demo_Dev_ZAP_VULNERABILITY_REPORT.xml' -o /var/jenkins_home/jobs/demo/builds/archive/out/demo_Dev_ZAP_VULNERABILITY_REPORT.xml"
-             }
-           }
-      }
-      stage("sitespeed_report") {
-           steps{
-             script {
-               sh "curl -u zippyops:zippyops01 -X GET 'http://nextcloud.jcr.svc.cluster.local/remote.php/dav/files/zippyops/sitespeed/index.html' -o /var/jenkins_home/jobs/demo/builds/archive/out/index.html"
-             }
-           }
-      }
     }
 
   post {
