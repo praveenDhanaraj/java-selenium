@@ -11,9 +11,4 @@
         <class name="com.sampletestpackage.Flipkart"/>
         </classes>
   </test>
-  <test name="snapdeal">
-        <classes>
-        <class name="com.suite2.SnapDeal"/>
-        </classes>
-  </test>
-</suite>
+ </suite>
