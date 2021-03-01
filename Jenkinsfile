@@ -183,27 +183,12 @@ stages {
 
   post {
       success {
+          
             publishHTML target: [
             allowMissing: false,
             alwaysLinkToLastBuild: true,
             keepAll: true,
-            reportDir: '/var/jenkins_home/jobs/demo/builds/archive/out',
-            reportFiles: 'demo_Dev_ZAP_VULNERABILITY_REPORT.html',
-            reportName: 'Dev_ZAP_VULNERABILITY_REPORT'
-              ]
-            publishHTML target: [
-            allowMissing: false,
-            alwaysLinkToLastBuild: true,
-            keepAll: true,
-            reportDir: '/var/jenkins_home/jobs/demo/builds/archive/out',
-            reportFiles: 'index.html',
-            reportName: 'Dev_speedtest'
-              ]
-            publishHTML target: [
-            allowMissing: false,
-            alwaysLinkToLastBuild: true,
-            keepAll: true,
-            reportDir: '${WORKSPACE}/target/surefire-reports',
+            reportDir: '/target/surefire-reports',
             reportFiles: 'index.html',
             reportName: 'Dev_Testng_Report'
               ]
