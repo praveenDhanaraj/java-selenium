@@ -43,7 +43,7 @@
     public void clickreferences() {
     try
     {
-    Thread.sleep(2000); 
+    Thread.sleep(4000); 
     
     
         driver.get(baseURL);
@@ -60,7 +60,7 @@
     public void pythonreferences() {
     try
     {
-    Thread.sleep(2000); 
+    Thread.sleep(3000); 
     
         driver.get(baseURL);
         driver.findElement(By.className("w3-bar-item w3-button")).click();
@@ -76,7 +76,7 @@
     public void searchingkeywords() {
     try
     {
-    Thread.sleep(2000); 
+    Thread.sleep(4000); 
     
         driver.get(baseURL);
         driver.findElement(By.className("bigbtn")).click();
@@ -92,7 +92,7 @@
     public void continuekeyword() {
     try
     {
-    Thread.sleep(2000); 
+    Thread.sleep(4000); 
     
         driver.get(baseURL);
         driver.findElement(By.className("continue")).click();
@@ -108,7 +108,7 @@
     public void clicknext() {
     try
     {
-    Thread.sleep(2000); 
+    Thread.sleep(4000); 
     
         driver.get(baseURL);
         driver.findElement(By.className("w3-right w3-btn")).click();
