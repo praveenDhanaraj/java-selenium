@@ -229,15 +229,15 @@ stages {
              script {
                sh 'sleep 10m'
                sh 'rm -rf /var/jenkins_home/jobs/demo/builds/archive/out/*'
-               sh "curl -u admin:zippyops -X GET 'http://nextcloud.jcr.svc.cluster.local/remote.php/dav/files/admin/zaproxy/demo_Dev_ZAP_VULNERABILITY_REPORT.html' -o /var/jenkins_home/jobs/demo/builds/archive/out/demo_Dev_ZAP_VULNERABILITY_REPORT.html"
-               sh "curl -u admin:zippyops -X GET 'http://nextcloud.jcr.svc.cluster.local/remote.php/dav/files/admin/zaproxy/demo_Dev_ZAP_VULNERABILITY_REPORT.xml' -o /var/jenkins_home/jobs/demo/builds/archive/out/demo_Dev_ZAP_VULNERABILITY_REPORT.xml"
+               sh "curl -u zippyops:zippyops01 -X GET 'http://nextcloud.jcr.svc.cluster.local/remote.php/dav/files/zippyops/zaproxy/demo_Dev_ZAP_VULNERABILITY_REPORT.html' -o /var/jenkins_home/jobs/demo/builds/archive/out/demo_Dev_ZAP_VULNERABILITY_REPORT.html"
+               sh "curl -u zippyops:zippyops01 -X GET 'http://nextcloud.jcr.svc.cluster.local/remote.php/dav/files/zippyops/zaproxy/demo_Dev_ZAP_VULNERABILITY_REPORT.xml' -o /var/jenkins_home/jobs/demo/builds/archive/out/demo_Dev_ZAP_VULNERABILITY_REPORT.xml"
              }
            }
       }
       stage("sitespeed_report") {
            steps{
              script {
-               sh "curl -u admin:zippyops -X GET 'http://nextcloud.jcr.svc.cluster.local/remote.php/dav/files/admin/sitespeed/index.html' -o /var/jenkins_home/jobs/demo/builds/archive/out/index.html"
+               sh "curl -u zippyops:zippyops01 -X GET 'http://nextcloud.jcr.svc.cluster.local/remote.php/dav/files/zippyops/sitespeed/index.html' -o /var/jenkins_home/jobs/demo/builds/archive/out/index.html"
              }
            }
       }
@@ -265,7 +265,7 @@ stages {
             allowMissing: false,
             alwaysLinkToLastBuild: true,
             keepAll: true,
-            reportDir: '/var/jenkins_home/jobs/demo/builds/archive/out',
+            reportDir: '${WORKSPACE}/target/surefire-reports',
             reportFiles: 'index.html',
             reportName: 'Dev_Testng_Report'
               ]
