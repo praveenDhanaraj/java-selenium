@@ -137,13 +137,7 @@ stages {
                    }
          }
      }
-    stage('Docker Build') {
-      agent any
-      steps {
-        sh "docker build -t zippyops01/cicd-dockerimage:${readProb['DockerImageTag']}  /var/jenkins_home/workspace/test/."
-      }
-    }
-
+   
     stage('Dev Anchore') {
         steps {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') { script {
@@ -164,15 +158,7 @@ stages {
              }
                }
 
-    stage('Docker Push') {
-      agent any
-      steps {
-        withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-          sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-          sh "docker push zippyops01/cicd-dockerimage:${readProb['DockerImageTag']}"
-        }
-      }
-    }
+   
         stage("Dev Deploy") {
            steps {
            script {
