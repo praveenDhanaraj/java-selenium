@@ -192,7 +192,11 @@ stage ('TestNG Report Stage') {
                sh "curl -u zippyops:zippyops01 -X DELETE 'http://nextcloud.jcr.svc.cluster.local/remote.php/dav/files/zippyops/seleniumtest_report/'"
                sh "curl -u zippyops:zippyops01 -X MKCOL 'http://nextcloud.jcr.svc.cluster.local/remote.php/dav/files/zippyops/seleniumtest_report'"
 
-               sh "curl -u zippyops:zippyops01 -X GET 'http://nextcloud.jcr.svc.cluster.local/remote.php/dav/files/zippyops/seleniumtest_report/index.html' -o /var/jenkins_home/workspace/test/target/surefire-reports/index.html"
+               # sh "curl -u zippyops:zippyops01 -X GET 'http://nextcloud.jcr.svc.cluster.local/remote.php/dav/files/zippyops/seleniumtest_report/index.html' -o /var/jenkins_home/workspace/test/target/surefire-reports/index.html"
+               
+               sh "curl -u zippyops:zippyops01 -X PUT --upload-file /var/jenkins_home/workspace/test/target/surefire-reports/index.html 'http://nextcloud.jcr.svc.cluster.local/remote.php/dav/files/zippyops/seleniumtest_report/index.html'"
+    
+
                
              }
            }
