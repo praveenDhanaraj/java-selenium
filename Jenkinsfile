@@ -188,7 +188,7 @@ stages {
             allowMissing: false,
             alwaysLinkToLastBuild: true,
             keepAll: true,
-            reportDir: '/target/surefire-reports',
+            reportDir: '/var/jenkins_home/workspace/test/target/surefire-reports',
             reportFiles: 'index.html',
             reportName: 'Dev_Testng_Report'
               ]
