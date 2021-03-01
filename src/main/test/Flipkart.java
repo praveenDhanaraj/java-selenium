@@ -114,7 +114,7 @@ driver.findElement(By.linkText("Logout")).click();
 
 @AfterClass
 public void quit() {
-driver.close();
+driver.quit();
 }
 
 }
