@@ -32,7 +32,7 @@ public class SnapDeal {
 
 	// This method is to navigate snapdeal URL
 	@BeforeClass
-	public void init() {
+	public void setUp() throws MalformedURLException {
 		
          baseURL = "https://www.snapdeal.com";
          nodeURL = "http://selenium-hub.hema.svc.cluster.local:4444/wd/hub";
