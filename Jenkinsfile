@@ -196,7 +196,7 @@ stage ('TestNG Report Stage') {
                
              }
            }
-      
+      }
     }
 
   post {
