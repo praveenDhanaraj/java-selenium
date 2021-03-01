@@ -48,12 +48,14 @@
     
         driver.get(baseURL);
         driver.findElement(By.id("topnavbtn_references")).click();
-    }
+    
      }
     catch(Exception e)
     {
     System.out.println(e.getMessage());
     }
+    }
+
     @Test
     public void pythonreferences() {
     try
@@ -63,10 +65,11 @@
         driver.get(baseURL);
         driver.findElement(By.className("w3-bar-item w3-button")).click();
      }
-    }
+    
     catch(Exception e)
     {
         System.out.println(e.getMessage());
+    }
     }
 
     @Test
@@ -77,11 +80,12 @@
     
         driver.get(baseURL);
         driver.findElement(By.className("bigbtn")).click();
-     }
+     
     }
     catch(Exception e)
     {
          System.out.println(e.getMessage());
+    }
     }
 
     @Test
@@ -93,10 +97,11 @@
         driver.get(baseURL);
         driver.findElement(By.className("continue")).click();
      }
-    }
+    
     catch(Exception e)
     {
         System.out.println(e.getMessage());
+    }
     }
 
     @Test
@@ -107,10 +112,11 @@
     
         driver.get(baseURL);
         driver.findElement(By.className("w3-right w3-btn")).click();
-     }
+     
     }
     catch(Exception e)
     {
         System.out.println(e.getMessage());
+    }
     }
  }
