@@ -16,7 +16,7 @@
      @BeforeClass
      public void setUp() throws MalformedURLException {
          baseURL = "https://www.w3schools.com/java/default.asp";
-         nodeURL = "http://selenium-hub.hema.svc.cluster.local:4444/wd/hub";
+         nodeURL = "http://zalenium.hema.svc.cluster.local:4444/wd/hub";
          DesiredCapabilities capability = DesiredCapabilities.chrome();
          capability.setPlatform(Platform.LINUX);
          driver = new RemoteWebDriver(new URL(nodeURL), capability);
