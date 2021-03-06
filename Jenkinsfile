@@ -195,7 +195,7 @@ stage ('TestNG Report Stage') {
             allowMissing: false,
             alwaysLinkToLastBuild: true,
             keepAll: true,
-            reportDir: '/var/jenkins_home/workspace/3java/target/surefire-reports',
+            reportDir: '/var/jenkins_home/workspace/2java/target/surefire-reports',
             reportFiles: 'index.html',
             reportName: 'Dev_Testng_Report'
               ]
