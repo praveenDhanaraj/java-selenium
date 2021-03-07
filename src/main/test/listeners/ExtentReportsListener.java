@@ -1,10 +1,5 @@
-package com.flipkart.webautomation.listeners;
+package listeners;
 
-import java.io.File;
-
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -12,7 +7,6 @@ import org.testng.ITestResult;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
-import com.flipkart.webautomation.config.DriverManager;
 
 public class ExtentReportsListener implements ITestListener {
 	// Extent Report Declarations
