@@ -1,35 +1,64 @@
 package com.flipkart.webautomation.listeners;
 
+import java.io.File;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.testng.ITestContext;
+import org.testng.ITestListener;
+import org.testng.ITestResult;
+
 import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
-import com.aventstack.extentreports.reporter.configuration.Theme;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.flipkart.webautomation.config.DriverManager;
 
-public class ExtentReportsManager {
-	private static ExtentReports extent;
-	private static String reportFileName = "TestReport.html";
-	private static String ubuntuPath = System.getProperty("user.dir") + "/TestReport";
-	private static String ubuntuReportFileLoc = ubuntuPath + "/" + reportFileName;
+public class ExtentReportsListener implements ITestListener {
+	// Extent Report Declarations
+		public static ExtentReports extent = ExtentReportsManager.createInstance();
+		public static ThreadLocal<ExtentTest> test = new ThreadLocal<>();
 
-	public static ExtentReports getInstance() {
-		if (extent == null)
-			createInstance();
-		return extent;
-	}
+		@Override
+		public synchronized void onStart(ITestContext context) {
+			System.out.println("Test Suite started!");
+		}
 
-	// Create an extent report instance
-	public static ExtentReports createInstance() {
-		String fileName = ubuntuReportFileLoc;
-		ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(fileName);
-		htmlReporter.config().setTheme(Theme.STANDARD);
-		htmlReporter.config().setDocumentTitle(fileName);
-		htmlReporter.config().setEncoding("utf-8");
-		htmlReporter.config().setReportName(fileName);
-		htmlReporter.config().setAutoCreateRelativePathMedia(false);
+		@Override
+		public synchronized void onFinish(ITestContext context) {
+			System.out.println(("Test Suite is ending!"));
+			extent.flush();
+		}
 
-		extent = new ExtentReports();
-		extent.attachReporter(htmlReporter);
+		@Override
+		public synchronized void onTestStart(ITestResult result) {
+			System.out.println((result.getMethod().getMethodName() + " started!"));
+			ExtentTest extentTest = extent.createTest(result.getMethod().getMethodName(),
+					result.getMethod().getDescription());
+			test.set(extentTest);
+		}
 
-		return extent;
-	}
+		@Override
+		public synchronized void onTestSuccess(ITestResult result) {
+			System.out.println((result.getMethod().getMethodName() + " passed!"));
+			test.get().pass("Test passed");
+		}
 
+		@Override
+		public synchronized void onTestFailure(ITestResult result) {
+			System.out.println((result.getMethod().getMethodName() + " failed!"));
+			test.get().log(Status.FAIL, result.getThrowable());
+
+		}
+
+		@Override
+		public synchronized void onTestSkipped(ITestResult result) {
+			System.out.println((result.getMethod().getMethodName() + " skipped!"));
+			test.get().skip(result.getThrowable());
+		}
+
+		@Override
+		public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
+			System.out.println(("onTestFailedButWithinSuccessPercentage for " + result.getMethod().getMethodName()));
+		}
 }
