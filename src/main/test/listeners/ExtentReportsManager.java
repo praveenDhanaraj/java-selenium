@@ -1,4 +1,4 @@
-package com.flipkart.webautomation.listeners;
+package listeners;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
