@@ -40,22 +40,23 @@ public void setUp() throws MalformedURLException {
 }
 
 
-public class Flipkart {
-         WebDriver driver;
-         String baseURL, nodeURL;
-
-
-         String username = ""; // Change to your username and passwrod
-         String password = "";
-
-// This method is to navigate flipkart URL
-@BeforeClass
-public void setUp() throws MalformedURLException {
-         baseURL = "https://www.flipkart.com";
-         nodeURL = "http://zalenium.hema.svc.cluster.local:4444/wd/hub";
-         DesiredCapabilities capability = DesiredCapabilities.chrome();
-         capability.setBrowserName("chrome");
-         capability.setPlatform(Platform.LINUX);
-         driver = new RemoteWebDriver(new URL(nodeURL), capability);
+// To log in flipkart
+@Test
+public void login() {
+try
+{
+Thread.sleep(3000);
+}
+catch(Exception e)
+{
+driver.findElement(By.partialLinkText("Login")).click();
+driver.findElement(
+By.cssSelector("input[placeholder='Enter email/mobile']"))
+.sendKeys(username);
+driver.findElement(
+By.cssSelector("input[placeholder='Enter password']"))
+.sendKeys(password);
+driver.findElement(By.cssSelector("input[value='Login'][class='submit-btn login-btn btn']")).click();
+}
 }
 }
