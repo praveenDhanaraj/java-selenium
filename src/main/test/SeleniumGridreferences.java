@@ -31,7 +31,7 @@
     public void clickreferences() {
     try
     {
-    Thread.sleep(4000); 
+    Thread.sleep(1000); 
     
     
         driver.get(baseURL);
