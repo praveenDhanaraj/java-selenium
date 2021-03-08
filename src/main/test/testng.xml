@@ -11,4 +11,19 @@
         <class name="com.sampletestpackage.Flipkart"/>
         </classes>
   </test>
- </suite>
+  <test name="flipkartsearchproducts">
+        <classes>
+        <class name="com.sampletestpackage.Flipkartproducts"/>
+        </classes>
+  </test>
+  <test name="flipkartremovecart">
+        <classes>
+        <class name="com.sampletestpackage.Flipkartremovecart"/>
+        </classes>
+  </test>
+  <test name="flipkartlogout">
+        <classes>
+        <class name="com.sampletestpackage.Flipkartlogout"/>
+        </classes>
+  </test>
+</suite>
