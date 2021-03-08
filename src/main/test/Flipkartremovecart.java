@@ -56,4 +56,10 @@ Alert a = driver.switchTo().alert();
 a.accept();
 }
 }
+
+@AfterClass
+public void quit() {
+driver.quit();
+}
+
 }
