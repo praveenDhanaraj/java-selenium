@@ -26,4 +26,29 @@
         <class name="com.sampletestpackage.Flipkartlogout"/>
         </classes>
   </test>
+  <test name="SeleniumGridnext">
+        <classes>
+        <class name="com.objectrepository.demo.SeleniumGridclicknext"/>
+        </classes>
+  </test>
+  <test name="SeleniumGridcontinue">
+        <classes>
+        <class name="com.objectrepository.demo.SeleniumGridcontinuekeywords"/>
+        </classes>
+  </test>
+  <test name="SeleniumGridkeywords">
+        <classes>
+        <class name="com.objectrepository.demo.SeleniumGridkeywords"/>
+        </classes>
+  </test>
+  <test name="SeleniumGridpython">
+        <classes>
+        <class name="com.objectrepository.demo.SeleniumGridpython"/>
+        </classes>
+  </test>
+  <test name="SeleniumGridreferences">
+        <classes>
+        <class name="com.objectrepository.demo.SeleniumGridreferences"/>
+        </classes>
+  </test>
 </suite>
