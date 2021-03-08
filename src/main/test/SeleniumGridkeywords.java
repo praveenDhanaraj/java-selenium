@@ -32,7 +32,7 @@
     public void searchingkeywords() {
     try
     {
-    Thread.sleep(4000); 
+    Thread.sleep(1000); 
     
         driver.get(baseURL);
         driver.findElement(By.className("bigbtn")).click();
