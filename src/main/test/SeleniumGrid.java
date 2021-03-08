@@ -27,16 +27,19 @@
      public void afterTest() {
          driver.quit();
      }
-     @Test
-     public void sampleTest() {
-         driver.get(baseURL);
-         
-
-         if (driver.getPageSource().contains("JAVASCRIPT")) {
-             Assert.assertTrue(true, "java script Link Found");
-         } else {
-             Assert.assertTrue(false, "Failed: Link not found");
-         }
-
+    @Test
+    public void sampletest() {
+    try
+    {
+    Thread.sleep(2000); 
+    
+        driver.get(baseURL);
+        driver.findElement(By.className("w3-bar-item w3-button")).click();
      }
+    
+    catch(Exception e)
+    {
+        
+    }
+    }
  }
