@@ -32,7 +32,7 @@
     public void clicknext() {
     try
     {
-    Thread.sleep(4000); 
+    Thread.sleep(1000); 
     
         driver.get(baseURL);
         driver.findElement(By.className("w3-right w3-btn")).click();
