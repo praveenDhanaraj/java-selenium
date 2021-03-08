@@ -31,7 +31,7 @@
     public void pythonreferences() {
     try
     {
-    Thread.sleep(3000); 
+    Thread.sleep(1000); 
     
         driver.get(baseURL);
         driver.findElement(By.className("w3-bar-item w3-button")).click();
