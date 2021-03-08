@@ -36,6 +36,7 @@ public void setUp() throws MalformedURLException {
          DesiredCapabilities capability = DesiredCapabilities.chrome();
          capability.setBrowserName("chrome");
          capability.setPlatform(Platform.LINUX);
+         capability.setBrowserVersion("85.0");
          driver = new RemoteWebDriver(new URL(nodeURL), capability);
 }
 
