@@ -44,7 +44,7 @@ public void setUp() throws MalformedURLException {
 public void addAndRemoveFromCart() {
 try
 {
-Thread.sleep(4000);
+Thread.sleep(1000);
 }
 catch(Exception e)
 {
