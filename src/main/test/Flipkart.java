@@ -20,7 +20,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-public class Flipkartproducts {
+public class Flipkart {
          WebDriver driver;
          String baseURL, nodeURL;
 
