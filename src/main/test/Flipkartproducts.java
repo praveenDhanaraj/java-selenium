@@ -60,4 +60,10 @@ String css = ".gd-row.browse-grid-row:nth-of-type(1) > div:nth-child(1)>div>div:
 driver.findElement(By.cssSelector(css)).click();
 }
 }
+
+@AfterClass
+public void quit() {
+driver.quit();
+}
+
 }
