@@ -59,4 +59,9 @@ By.cssSelector("input[placeholder='Enter password']"))
 driver.findElement(By.cssSelector("input[value='Login'][class='submit-btn login-btn btn']")).click();
 }
 }
+
+@AfterClass
+public void quit() {
+driver.quit();
+}
 }
