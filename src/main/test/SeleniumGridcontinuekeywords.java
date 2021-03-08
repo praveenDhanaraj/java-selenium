@@ -32,7 +32,7 @@
     public void continuekeyword() {
     try
     {
-    Thread.sleep(4000); 
+    Thread.sleep(1000); 
     
         driver.get(baseURL);
         driver.findElement(By.className("continue")).click();
