@@ -21,7 +21,8 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 
 public class Flipkart {
-         String baseURL;
+        private String baseURL;
+        private WebDriver driver;
 
 
          String username = ""; // Change to your username and passwrod
@@ -32,9 +33,9 @@ public class Flipkart {
 public void setUp() throws MalformedURLException {
          baseURL = "https://www.flipkart.com";
          System.setProperty("webdriver.chrome.driver", "/var/lib/jenkins/testing/chromedriver");
-         ChromeOptions chromeOptions = new ChromeOptions();
-         chromeOptions.addArguments("--headless");
-         WebDriver driver = new ChromeDriver(chromeOptions);
+         driver = new ChromeDriver();
+         driver.manage().window().maximize();
+         driver.get(baseURL);
 }
 
 
