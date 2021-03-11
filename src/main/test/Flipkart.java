@@ -34,7 +34,7 @@ public void setUp() throws MalformedURLException {
          System.setProperty("webdriver.chrome.driver", "/var/lib/jenkins/testing/chromedriver");
          ChromeOptions chromeOptions = new ChromeOptions();
          chromeOptions.addArguments("--headless");
-         WebDriver driver = new ChromeDriver(chromeOptions)
+         WebDriver driver = new ChromeDriver(chromeOptions);
 }
 
 
