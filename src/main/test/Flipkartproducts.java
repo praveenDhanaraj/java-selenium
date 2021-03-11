@@ -21,8 +21,8 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 
 public class Flipkartproducts {
-         WebDriver driver;
-         String baseURL, nodeURL;
+         WebDriver driver = new ChromeDriver(chromeOptions);
+         String baseURL;
 
 
          String username = ""; // Change to your username and passwrod
@@ -32,11 +32,10 @@ public class Flipkartproducts {
 @BeforeClass
 public void setUp() throws MalformedURLException {
          baseURL = "https://www.flipkart.com";
-         nodeURL = "http://zalenium.hema.svc.cluster.local:4444/wd/hub";
-         DesiredCapabilities capability = DesiredCapabilities.chrome();
-         capability.setBrowserName("chrome");
-         capability.setPlatform(Platform.LINUX);
-         driver = new RemoteWebDriver(new URL(nodeURL), capability);
+         System.setProperty("webdriver.chrome.driver", "/var/lib/jenkins/testing/chromedriver");
+         ChromeOptions chromeOptions = new ChromeOptions();
+         chromeOptions.addArguments("--headless");
+         WebDriver driver = new ChromeDriver(chromeOptions);
 }
 
 
