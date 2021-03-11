@@ -9,17 +9,19 @@
  import java.util.concurrent.TimeUnit;
  
  public class SeleniumGridkeywords {
+    private String baseURL;
+    private WebDriver driver;
 
-     String baseURL;
 
      @BeforeClass
      public void setUp() throws MalformedURLException {
          baseURL = "https://www.w3schools.com/java/default.asp";
          baseURL = "https://www.flipkart.com";
          System.setProperty("webdriver.chrome.driver", "/var/lib/jenkins/testing/chromedriver");
-         ChromeOptions chromeOptions = new ChromeOptions();
-         chromeOptions.addArguments("--headless");
-         WebDriver driver = new ChromeDriver(chromeOptions);        
+         driver = new ChromeDriver();
+         driver.manage().window().maximize();
+         driver.get(baseURL);
+   
      }
 
      @AfterClass
