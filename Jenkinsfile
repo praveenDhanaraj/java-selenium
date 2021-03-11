@@ -39,8 +39,8 @@ stages {
         build= "${readProb['Build']}"
                 if ("$build" == "yes") {
                sh """
-                cd devsecopscodebase/kubernetes-java
-                    mvn clean install
+                cd devsecopscodebase/
+                    mvn clean test
                    """
             }
                  else {
