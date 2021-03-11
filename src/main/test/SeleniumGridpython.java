@@ -9,18 +9,17 @@
  import java.util.concurrent.TimeUnit;
  
  public class SeleniumGridpython {
-
-     WebDriver driver;
-     String baseURL, nodeURL;
+     String baseURL;
 
      @BeforeClass
      public void setUp() throws MalformedURLException {
          baseURL = "https://www.w3schools.com/java/default.asp";
-         nodeURL = "http://zalenium.hema.svc.cluster.local:4444/wd/hub";
-         DesiredCapabilities capability = DesiredCapabilities.chrome();
-         capability.setPlatform(Platform.LINUX);
-         driver = new RemoteWebDriver(new URL(nodeURL), capability);
-         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);         
+         baseURL = "https://www.flipkart.com";
+         System.setProperty("webdriver.chrome.driver", "/var/lib/jenkins/testing/chromedriver");
+         ChromeOptions chromeOptions = new ChromeOptions();
+         chromeOptions.addArguments("--headless");
+         WebDriver driver = new ChromeDriver(chromeOptions);
+         
      }
 
      @AfterClass
