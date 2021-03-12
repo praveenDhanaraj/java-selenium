@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
 
-public class Flipkart {
+public class Flipkartproducts {
         private String baseURL;
         private WebDriver driver;
     ChromeDriverService service;
